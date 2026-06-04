@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+echo ".venv/
+data/raw/
+*.pkl
+*.parquet
+__pycache__/
+.DS_Store
+.env" >> .gitignore
