@@ -39,8 +39,8 @@ def load_inputs(processed_dir: Path) -> tuple:
         df_legs       : daily leg count forecasts (program, non-program)
         cancel_lookup : dict mapping callout bucket → cancellation rate
     """
-    df_avail = pl.read_parquet(processed_dir / "jan2026_availability_forecast.parquet")
-    df_legs  = pl.read_parquet(processed_dir / "jan2026_legs_forecast.parquet")
+    df_avail = pl.read_parquet(processed_dir / "jan2026_may2026_availability_forecast.parquet")
+    df_legs  = pl.read_parquet(processed_dir / "jan2026_may2026_legs_forecast.parquet")
 
     with open(processed_dir / "cancellation_lookup.json") as f:
         cancel_lookup = json.load(f)
