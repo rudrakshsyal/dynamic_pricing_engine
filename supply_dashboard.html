@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Supply Dashboard</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;margin:0;padding:12px;background:#fff;color:#2c2c2a}
+.snav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.sbtn{padding:6px 18px;border-radius:20px;border:0.5px solid #d3d1c7;background:transparent;color:#5f5e5a;font-size:12px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap}
+.sbtn.act{background:#1f3564;color:#fff;border-color:#1f3564}
+.sbtn:hover:not(.act){background:#f1efe8}
+.spnl{display:none}.spnl.act{display:block}
+.smc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.smc{background:#f1efe8;border-radius:8px;padding:12px 14px}
+.smc.red{background:#FCEBEB}
+.smc.grn{background:#e1f5ee}
+.smlbl{font-size:10px;color:#5f5e5a;margin-bottom:3px;letter-spacing:.04em;text-transform:uppercase}
+.smval{font-size:22px;font-weight:500;color:#2c2c2a;line-height:1.2}
+.smsub{font-size:10px;color:#888780;margin-top:2px}
+.cwrap{position:relative;width:100%}
+.cnote{font-size:10px;color:#888780;margin-top:7px;text-align:center;font-style:italic}
+.lgnd{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:11px;color:#5f5e5a}
+.ldot{width:11px;height:11px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:-1px}
+.mtbl{width:100%;border-collapse:collapse;font-size:12px}
+.mtbl th{font-size:10px;color:#888780;text-transform:uppercase;letter-spacing:.04em;font-weight:400;padding:0 10px 10px 0;text-align:left;border-bottom:1px solid #e8e6e0}
+.mtbl td{padding:9px 10px 9px 0;border-bottom:0.5px solid #f1efe8;vertical-align:middle;color:#2c2c2a}
+.mtbl tr:last-child td{border-bottom:none}
+.mbadge{font-size:10px;font-weight:500;padding:3px 8px;border-radius:10px;white-space:nowrap;display:inline-block}
+.mb-hybrid{background:#E6F1FB;color:#0C447C}
+.mb-xgb{background:#E1F5EE;color:#085041}
+.mb-seas{background:#F1EFE8;color:#5F5E5A}
+.mb-const{background:#FAEEDA;color:#633806}
+.mkey{color:#5f5e5a;font-size:11px;line-height:1.5}
+.ibox{margin-top:12px;padding:10px 14px;background:#f1efe8;border-radius:0 8px 8px 0;border-left:3px solid #534ab7;font-size:11px;color:#444441;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="snav">
+  <button class="sbtn act" onclick="sSw('ov',this)">Supply overview</button>
+  <button class="sbtn" onclick="sSw('wf',this)">Supply waterfall</button>
+  <button class="sbtn" onclick="sSw('mx',this)">Model selection</button>
+</div>
+
+<div id="spov" class="spnl act">
+  <div class="smc3">
+    <div class="smc red"><div class="smlbl">DNQ days — Jan 2026</div><div class="smval">16 of 31</div><div class="smsub">Zero OD supply — do not quote</div></div>
+    <div class="smc"><div class="smlbl">Mean OD supply</div><div class="smval">~1.5 legs/day</div><div class="smsub">Across all Jan departure dates</div></div>
+    <div class="smc grn"><div class="smlbl">Fleet committed to Program</div><div class="smval">~95%</div><div class="smsub">Subscribers hold first claim on supply</div></div>
+  </div>
+  <div class="lgnd">
+    <span><span class="ldot" style="background:#FCEBEB;border:1px solid #A32D2D"></span>DNQ — zero supply (16 days)</span>
+    <span><span class="ldot" style="background:rgba(29,158,117,0.7)"></span>Solved — equilibrium yield (10 days)</span>
+    <span><span class="ldot" style="background:rgba(55,138,221,0.65)"></span>Floor — high supply, ~$7k (5 days)</span>
+  </div>
+  <div class="cwrap" style="height:265px"><canvas id="sC1"></canvas></div>
+  <div class="cnote">Jan 2026 departure dates · DNQ days previously undetected by static MSRP system · Directional and representative</div>
+</div>
+
+<div id="spwf" class="spnl">
+  <div style="font-size:12px;color:#5f5e5a;margin-bottom:3px">Typical solved day — supply decomposition</div>
+  <div style="font-size:10px;color:#888780;margin-bottom:12px;font-style:italic">Gross fleet capacity → subtract each committed term → available OD supply · Hover any bar for model detail</div>
+  <div class="cwrap" style="height:330px"><canvas id="sC2"></canvas></div>
+  <div class="cnote">Each bar labeled with its model · Teal = starting point · Coral = maintenance · Purple = program commitment · Final teal = OD supply</div>
+</div>
+
+<div id="spmx" class="spnl">
+  <div style="font-size:12px;color:#5f5e5a;margin-bottom:12px">Model chosen for each sub-component and the rationale behind it</div>
+  <table class="mtbl">
+    <thead>
+      <tr>
+        <th style="width:16%">Component</th>
+        <th style="width:19%">Model</th>
+        <th>Key driver for this choice</th>
+        <th style="text-align:right;width:16%">Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:500">AOG rate</td>
+        <td><span class="mbadge mb-seas">Seasonal mean</span></td>
+        <td class="mkey">Mechanical failures are random — no predictable trend or seasonality. Prophet found no signal and overfit noise. Simplest model wins on RMSE.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#5f5e5a">Baseline wins</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">SMX rate</td>
+        <td><span class="mbadge mb-hybrid">Hybrid</span></td>
+        <td class="mkey">2-week schedule visibility → use actual events within window; Prophet beyond. In-window actuals recalibrate the out-window forecast.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#085041">+18.4% vs baseline</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">UMX rate</td>
+        <td><span class="mbadge mb-seas">Seasonal mean</span></td>
+        <td class="mkey">Unscheduled maintenance is noisy. Prophet overfit and was −13.3% vs baseline. Random signal — honest to use the simplest model.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#5f5e5a">Baseline wins</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">CNA rate</td>
+        <td><span class="mbadge mb-const">Constant 1.84%</span></td>
+        <td class="mkey">Crew unavailability showed no seasonality or trend in data. Constant rate is the most parsimonious model that fits the data-generating process.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#5f5e5a">Constant wins</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">Program legs</td>
+        <td><span class="mbadge mb-xgb">XGBoost</span></td>
+        <td class="mkey">Dominant signal is current booking count — encodes the booking curve directly. XGBoost with callout, DOW, peak flags, confirmed booking count beats pure time-series.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#085041">+6.3% vs baseline</td>
+      </tr>
+      <tr>
+        <td style="font-weight:500">Non-prog legs</td>
+        <td><span class="mbadge mb-seas">Seasonal mean</span></td>
+        <td class="mkey">Low volume, weak signal. Prophet showed −0.8% vs baseline — essentially identical. Simpler model preferred at equal performance.</td>
+        <td style="text-align:right;font-size:11px;font-weight:500;color:#5f5e5a">Baseline wins</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="ibox"><strong>Design principle:</strong> Each sub-model was chosen by the simplest approach the data supported. Where complex models improved accuracy (SMX, Program legs), they were used. Where they didn't, the baseline was kept. This minimises overfitting risk across 6 independently composable and testable components.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const _si={ov:false,wf:false,mx:true};
+function sSw(t,b){
+  document.querySelectorAll('.sbtn').forEach(x=>x.classList.remove('act'));
+  b.classList.add('act');
+  document.querySelectorAll('.spnl').forEach(x=>x.classList.remove('act'));
+  document.getElementById('sp'+t).classList.add('act');
+  if(!_si[t]) setTimeout(()=>{_sIt(t);_si[t]=true;},55);
+}
+function _sIt(t){if(t==='ov')_sC1();if(t==='wf')_sC2();}
+const SGR='rgba(0,0,0,0.055)',STK='rgba(0,0,0,0.42)';
+
+function _sC1(){
+  const dnq=[0,1,2,4,5,7,8,10,11,14,15,17,18,21,24,27];
+  const flr=[12,19,22,28,30];
+  const sy={3:12400,6:13200,9:10600,13:14100,16:11800,20:12900,23:14900,25:13400,26:11200,29:12700};
+  const lbl=Array.from({length:31},(_,i)=>'J'+(i+1));
+  const vals=[],bgs=[],bds=[];
+  for(let i=0;i<31;i++){
+    if(dnq.includes(i)){vals.push(15000);bgs.push(null);bds.push('#A32D2D');}
+    else if(flr.includes(i)){vals.push(7000);bgs.push('rgba(55,138,221,0.65)');bds.push('#185FA5');}
+    else{vals.push(sy[i]||0);bgs.push('rgba(29,158,117,0.7)');bds.push('#0F6E56');}
+  }
+  const hp={id:'shp2',afterInit(ch){
+    const ctx=ch.ctx,pc=document.createElement('canvas');
+    pc.width=10;pc.height=10;
+    const px=pc.getContext('2d');
+    px.fillStyle='#FCEBEB';px.fillRect(0,0,10,10);
+    px.strokeStyle='#A32D2D';px.lineWidth=1.5;
+    px.beginPath();px.moveTo(0,10);px.lineTo(10,0);px.stroke();
+    px.beginPath();px.moveTo(-2,2);px.lineTo(2,-2);px.stroke();
+    px.beginPath();px.moveTo(8,12);px.lineTo(12,8);px.stroke();
+    const pat=ctx.createPattern(pc,'repeat');
+    dnq.forEach(i=>{ch.data.datasets[0].backgroundColor[i]=pat;});
+    ch.update('none');
+  }};
+  const dp={id:'sdp2',afterDatasetsDraw(ch){
+    const ctx=ch.ctx,meta=ch.getDatasetMeta(0);
+    dnq.forEach(i=>{
+      const bar=meta.data[i];if(!bar)return;
+      ctx.save();ctx.fillStyle='#791F1F';ctx.font='bold 8px Arial';
+      ctx.textAlign='center';ctx.textBaseline='top';
+      ctx.fillText('DNQ',bar.x,bar.y+3);ctx.restore();
+    });
+  }};
+  new Chart(document.getElementById('sC1'),{
+    type:'bar',plugins:[hp,dp],
+    data:{labels:lbl,datasets:[{data:vals,backgroundColor:bgs,borderColor:bds,borderWidth:1,borderRadius:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label(c){
+        const i=c.dataIndex;
+        if(dnq.includes(i))return'DNQ — zero OD supply';
+        if(flr.includes(i))return'Floor: ~$7k';
+        return'Yield: ~$'+(Math.round(c.parsed.y/100)*100).toLocaleString();
+      }}}},
+      scales:{
+        x:{ticks:{color:STK,font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:11},grid:{display:false}},
+        y:{min:0,max:16500,ticks:{callback:v=>'$'+(v/1000)+'k',color:STK,font:{size:10},stepSize:3000},grid:{color:SGR}}
+      }
+    }
+  });
+}
+
+function _sC2(){
+  const wfd=[[0,12.7],[10.3,12.7],[9.8,10.3],[9.0,9.8],[8.8,9.0],[3.0,8.8],[2.3,3.0],[1.9,2.3],[0,1.9]];
+  const wfbg=['rgba(29,158,117,0.75)','rgba(216,90,48,0.78)','rgba(216,90,48,0.65)','rgba(216,90,48,0.65)','rgba(216,90,48,0.48)','rgba(83,74,183,0.75)','rgba(186,117,23,0.7)','rgba(136,135,128,0.6)','#085041'];
+  const wfbd=['#0F6E56','#993C1D','#993C1D','#993C1D','#993C1D','#3C3489','#854F0B','#5F5E5A','#04342C'];
+  const labs=[['Raw legs','x1.06'],['SMX','Hybrid'],['AOG','S.mean'],['UMX','S.mean'],['CNA','Const.'],['Program','XGBoost'],['Non-prog','S.mean'],['OD cancel','Lookup'],['OD supply','result']];
+  const amts=['12.7','2.4','0.5','0.8','0.2','5.8','0.7','0.4','1.9'];
+  const isSub=[false,true,true,true,true,true,true,true,false];
+  const methods=['x1.06 multiplier','Hybrid (schedule + Prophet)','Seasonal mean','Seasonal mean','Constant 1.84%','XGBoost','Seasonal mean','Callout bucket lookup','Final OD supply'];
+  const lp={id:'wfl2',afterDatasetsDraw(ch){
+    const {ctx}=ch,meta=ch.getDatasetMeta(0);
+    meta.data.forEach((bar,i)=>{
+      const ph=Math.abs(bar.base-bar.y);
+      if(ph<10)return;
+      const txt=isSub[i]?'-'+amts[i]:amts[i];
+      const fs=Math.min(11,Math.max(8,ph*0.28));
+      ctx.save();ctx.fillStyle='#fff';
+      ctx.font=`bold ${fs}px system-ui,Arial`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(txt,bar.x,(bar.y+bar.base)/2);
+      ctx.restore();
+    });
+  }};
+  new Chart(document.getElementById('sC2'),{
+    type:'bar',plugins:[lp],
+    data:{labels:labs,datasets:[{data:wfd,backgroundColor:wfbg,borderColor:wfbd,borderWidth:1,borderRadius:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        title:c=>labs[c[0].dataIndex][0],
+        label:c=>{
+          const i=c.dataIndex;
+          const amt=isSub[i]?('-'+amts[i]+' legs'):(amts[i]+' legs');
+          return[amt,'Model: '+methods[i]];
+        }
+      }}},
+      scales:{
+        x:{ticks:{color:STK,font:{size:9},maxRotation:35,autoSkip:false},grid:{display:false}},
+        y:{min:0,max:14,ticks:{callback:v=>v.toFixed(0),color:STK,font:{size:10},stepSize:2},grid:{color:SGR},title:{display:true,text:'Legs',color:STK,font:{size:10}}}
+      }
+    }
+  });
+}
+
+setTimeout(()=>{if(!_si.ov){_sC1();_si.ov=true;}},35);
+</script>
+</body></html>

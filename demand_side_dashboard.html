@@ -1,0 +1,211 @@
+<h2 class="sr-only">Demand-side dashboard: three tabs covering quote forecast, elasticity curves, and the D(Y) equilibrium curve with three supply scenarios.</h2>
+<style>
+.tnav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.tbtn{padding:6px 18px;border-radius:20px;border:0.5px solid #d3d1c7;background:transparent;color:#5f5e5a;font-size:12px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap}
+.tbtn.act{background:#1f3564;color:#fff;border-color:#1f3564}
+.tbtn:hover:not(.act){background:#f1efe8}
+.pnl{display:none}.pnl.act{display:block}
+.mcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.mc{background:#f1efe8;border-radius:8px;padding:12px 14px}
+.mc.hi{background:#e1f5ee}
+.mlbl{font-size:10px;color:#5f5e5a;margin-bottom:3px;letter-spacing:.04em;text-transform:uppercase}
+.mval{font-size:22px;font-weight:500;color:#2c2c2a;line-height:1.2}
+.msub{font-size:10px;color:#888780;margin-top:2px}
+.cwrap{position:relative;width:100%}
+.cnote{font-size:10px;color:#888780;margin-top:7px;text-align:center;font-style:italic}
+.tcol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.clbl{font-size:12px;font-weight:500;color:#2c2c2a;margin-bottom:1px}
+.csub{font-size:10px;color:#888780;margin-bottom:9px}
+.ibox{margin-top:14px;padding:11px 14px;background:#f1efe8;border-radius:0 8px 8px 0;font-size:11px;color:#444441;line-height:1.65;border-left:3px solid #534ab7}
+.scards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.sc{padding:10px 12px;border-radius:0 8px 8px 0;background:#f8f7f3;font-size:11px;line-height:1.5}
+.sc.d{border-left:3px solid #a32d2d}
+.sc.s{border-left:3px solid #1d9e75}
+.sc.f{border-left:3px solid #378add}
+.sclbl{font-size:12px;font-weight:500;color:#2c2c2a;margin-bottom:3px}
+.scdesc{color:#5f5e5a}
+.lgnd{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:11px;color:#5f5e5a}
+.ldot{width:11px;height:11px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:-1px}
+</style>
+
+<div style="padding:0.5rem 0">
+<div class="tnav">
+  <button class="tbtn act" onclick="dSw('ov',this)">Demand overview</button>
+  <button class="tbtn" onclick="dSw('el',this)">Elasticity curves</button>
+  <button class="tbtn" onclick="dSw('dy',this)">D(Y) — demand curve</button>
+</div>
+
+<div id="dpov" class="pnl act">
+  <div class="mcards">
+    <div class="mc"><div class="mlbl">Training mean</div><div class="mval">~65 / day</div><div class="msub">Historical baseline, all periods</div></div>
+    <div class="mc hi"><div class="mlbl">Jan 2026 forecast</div><div class="mval">~80 / day</div><div class="msub">+23% seasonal lift above baseline</div></div>
+    <div class="mc"><div class="mlbl">Jan 2025 actual</div><div class="mval">~79 / day</div><div class="msub">Validation ✓ — within 2%</div></div>
+  </div>
+  <div class="lgnd">
+    <span><span class="ldot" style="background:rgba(83,74,183,0.65)"></span>Jan 2026 quote forecast</span>
+    <span><span class="ldot" style="background:#D85A30;height:2px;border-radius:0;margin-top:5px;display:inline-block;width:18px"></span>&nbsp;Training mean ~65/day</span>
+  </div>
+  <div class="cwrap" style="height:248px"><canvas id="dC1" role="img" aria-label="Bar chart of daily quote forecasts for January 2026 averaging around 80 per day with orange reference line at 65 showing training mean">Jan 2026 quote forecast ~80/day vs training mean ~65/day.</canvas></div>
+  <div class="cnote">Prophet (weekly + yearly seasonality) · Anchored at historical median yield ~$11k · Validated against Jan 2025 actual (~79/day)</div>
+</div>
+
+<div id="dpel" class="pnl">
+  <div class="tcol">
+    <div>
+      <div class="clbl">Quote count elasticity ε_q(Y)</div>
+      <div class="csub">Near-inelastic — shoppers inquire regardless of price</div>
+      <div class="cwrap" style="height:228px"><canvas id="dC2" role="img" aria-label="LOWESS scatter plot showing quote count elasticity staying near 1.0 across the $7k to $15k yield range">Quote elasticity near-flat: multiplier stays close to 1.0 across operating range.</canvas></div>
+    </div>
+    <div>
+      <div class="clbl">Conversion elasticity ε_c(Y)</div>
+      <div class="csub">Dominant lever — booking probability drops sharply</div>
+      <div class="cwrap" style="height:228px"><canvas id="dC3" role="img" aria-label="Scatter plot with exponential decay curve showing conversion rate falling from about 6% at $7.5k to under 2% at $15k yield">Conversion follows exponential decay: ~6% at $7.5k to ~2% at $15k. R²≈0.97 on 13 yield bins.</canvas></div>
+    </div>
+  </div>
+  <div class="ibox"><strong>Key insight:</strong> Quote volume barely responds to price (left — y-axis: 0 to 1.2×). Conversion rate collapses by ~70% across the operating range (right). Private aviation shoppers inquire when they have a travel need — price gates the <em>booking decision</em>, not the inquiry. Conversion is the lever the solver optimises over.</div>
+</div>
+
+<div id="dpdy" class="pnl">
+  <div class="lgnd">
+    <span><span class="ldot" style="background:#534AB7"></span>D(Y) — expected bookings/day</span>
+    <span><span class="ldot" style="background:#A32D2D;opacity:.7"></span>DNQ supply (~0)</span>
+    <span><span class="ldot" style="background:#1D9E75;opacity:.8"></span>Solved day (~1.9 legs)</span>
+    <span><span class="ldot" style="background:#378ADD;opacity:.8"></span>Floor day (~6 legs)</span>
+  </div>
+  <div class="cwrap" style="height:308px"><canvas id="dC4" role="img" aria-label="Line chart of D(Y) demand curve declining from 5.7 at $7k to 1.1 at $15k, with three horizontal supply scenario lines. Solved day intersection marked at Y* equals $12.7k">D(Y) with three scenarios: DNQ near-zero supply, solved day at 1.9 legs intersecting at $12.7k, floor day at 6 legs above entire curve.</canvas></div>
+  <div class="scards">
+    <div class="sc d"><div class="sclbl">DNQ day (16 of 31)</div><div class="scdesc">Supply ≈ 0. D(Y) exceeds supply at every yield — quoting risks off-fleet sourcing at a loss.</div></div>
+    <div class="sc s"><div class="sclbl">Solved day (10 of 31)</div><div class="scdesc">Supply ~1.9 legs. Solver finds Y* ≈ $12.7k where D(Y) = supply. Market-clearing price.</div></div>
+    <div class="sc f"><div class="sclbl">Floor day (5 of 31)</div><div class="scdesc">Supply ~6 legs. D($7k) < supply at every yield. Price at floor $7k to capture available demand.</div></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const _di={ov:false,el:false,dy:false};
+function dSw(t,b){
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('act'));
+  b.classList.add('act');
+  document.querySelectorAll('.pnl').forEach(x=>x.classList.remove('act'));
+  document.getElementById('dp'+t).classList.add('act');
+  if(!_di[t]) setTimeout(()=>{_dIt(t);_di[t]=true;},55);
+}
+function _dIt(t){if(t==='ov')_dC1();if(t==='el'){_dC2();_dC3();}if(t==='dy')_dC4();}
+
+const GR='rgba(0,0,0,0.055)',TK='rgba(0,0,0,0.42)';
+
+function _dC1(){
+  const lbl=Array.from({length:31},(_,i)=>'J'+(i+1));
+  const v=[79,82,84,80,75,71,78,83,85,82,79,74,70,77,82,84,81,79,73,70,77,84,86,83,80,75,71,78,83,81,79];
+  new Chart(document.getElementById('dC1'),{
+    type:'bar',
+    data:{labels:lbl,datasets:[
+      {label:'Forecast',data:v,backgroundColor:'rgba(83,74,183,0.65)',borderColor:'#534AB7',borderWidth:0.5,borderRadius:2,order:2},
+      {type:'line',label:'Training mean',data:Array(31).fill(65),borderColor:'#D85A30',borderWidth:1.5,borderDash:[6,4],pointRadius:0,fill:false,order:1}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.datasetIndex===0?`Forecast: ~${c.parsed.y} quotes/day`:'Training mean: ~65/day'}}},
+      scales:{
+        x:{ticks:{color:TK,font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:11},grid:{display:false}},
+        y:{min:0,max:110,ticks:{color:TK,font:{size:10}},grid:{color:GR},title:{display:true,text:'Quotes per day',color:TK,font:{size:10}}}
+      }
+    }
+  });
+}
+
+function _dC2(){
+  const xv=[7.25,7.75,8.25,8.75,9.25,9.75,10.25,10.75,11.25,11.75,12.25,12.75,13.25,13.75,14.25,14.75];
+  const yv=[1.06,1.04,1.03,1.02,1.01,1.00,0.99,0.98,0.97,0.96,0.93,0.88,0.82,0.74,0.62,0.48];
+  const pts=xv.map((x,i)=>({x:x*1000,y:yv[i]}));
+  new Chart(document.getElementById('dC2'),{
+    type:'line',
+    data:{datasets:[
+      {data:pts,borderColor:'#534AB7',borderWidth:2,pointRadius:5,pointBackgroundColor:'#534AB7',pointBorderColor:'#fff',pointBorderWidth:1.5,fill:false,tension:0.35,label:'LOWESS'},
+      {data:[{x:7000,y:1.0},{x:15000,y:1.0}],borderColor:'rgba(136,135,128,0.35)',borderWidth:1,borderDash:[4,3],pointRadius:0,fill:false,label:'1.0×'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`ε_q = ${c.parsed.y.toFixed(2)}× at $${(c.parsed.x/1000).toFixed(1)}k`}}},
+      scales:{
+        x:{type:'linear',min:7000,max:15000,ticks:{callback:v=>'$'+(v/1000)+'k',color:TK,font:{size:9},stepSize:2000},grid:{color:GR},title:{display:true,text:'Yield ($/EFT hr)',color:TK,font:{size:10}}},
+        y:{min:0,max:1.25,ticks:{callback:v=>v.toFixed(2)+'×',color:TK,font:{size:9},stepSize:0.25},grid:{color:GR},title:{display:true,text:'Quote multiplier',color:TK,font:{size:10}}}
+      }
+    }
+  });
+}
+
+function _dC3(){
+  const bx=[7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5].map(x=>x*1000);
+  const by=[6.3,5.4,4.5,3.8,3.2,2.6,2.2,1.9,1.6,1.3,1.1,0.9,0.8];
+  const cx=Array.from({length:140},(_,i)=>(6+i*0.1)*1000);
+  const cy=cx.map(x=>22.97*Math.exp(-0.1736*x/1000));
+  new Chart(document.getElementById('dC3'),{
+    type:'scatter',
+    data:{datasets:[
+      {type:'line',data:cx.map((x,i)=>({x,y:cy[i]})),borderColor:'#D85A30',borderWidth:2,pointRadius:0,fill:false,tension:0.2,order:2,label:'Fit'},
+      {data:bx.map((x,i)=>({x,y:by[i]})),backgroundColor:'#534AB7',borderColor:'#fff',borderWidth:1.5,pointRadius:6,order:1,label:'Observed'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{filter:i=>i.datasetIndex===1,callbacks:{label:c=>`${c.parsed.y.toFixed(1)}% conv. at $${(c.parsed.x/1000).toFixed(1)}k`}}},
+      scales:{
+        x:{type:'linear',min:6000,max:20500,ticks:{callback:v=>'$'+(v/1000)+'k',color:TK,font:{size:9},stepSize:2000},grid:{color:GR},title:{display:true,text:'Yield ($/EFT hr)',color:TK,font:{size:10}}},
+        y:{min:0,max:8,ticks:{callback:v=>v+'%',color:TK,font:{size:9},stepSize:2},grid:{color:GR},title:{display:true,text:'Conversion rate',color:TK,font:{size:10}}}
+      }
+    }
+  });
+}
+
+function _dC4(){
+  function eq(Y){return Y<=11?1+0.008*(11-Y):Math.max(0.60,1-0.04*(Y-11));}
+  function D(Y){return +(80.3*eq(Y)*0.2297*Math.exp(-0.1736*Y)).toFixed(3);}
+  const yr=Array.from({length:81},(_,i)=>7+i*0.1);
+  const curve=yr.map(Y=>({x:Y*1000,y:D(Y)}));
+
+  const zonePlug={id:'zp',beforeDraw(ch){
+    const {ctx,chartArea:ca,scales:sc}=ch;
+    if(!ca)return;
+    const x7=sc.x.getPixelForValue(7000),x15=sc.x.getPixelForValue(15000);
+    ctx.fillStyle='rgba(55,138,221,0.07)';
+    ctx.fillRect(ca.left,ca.top,x7-ca.left,ca.bottom-ca.top);
+    ctx.fillStyle='rgba(163,45,45,0.07)';
+    ctx.fillRect(x15,ca.top,ca.right-x15,ca.bottom-ca.top);
+  }};
+
+  const annPlug={id:'ap',afterDatasetsDraw(ch){
+    const {ctx,chartArea:ca,scales:sc}=ch;
+    const ix=sc.x.getPixelForValue(12700),iy=sc.y.getPixelForValue(1.9);
+    ctx.save();ctx.setLineDash([4,3]);ctx.strokeStyle='rgba(29,158,117,0.38)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(ix,iy);ctx.lineTo(ix,ca.bottom);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ix,iy);ctx.lineTo(ca.left,iy);ctx.stroke();
+    ctx.restore();
+    ctx.save();ctx.beginPath();ctx.arc(ix,iy,5.5,0,Math.PI*2);
+    ctx.fillStyle='#1D9E75';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+    ctx.save();ctx.fillStyle='#085041';ctx.font='bold 11px system-ui,Arial';ctx.textAlign='center';
+    ctx.fillText('Y* \u2248 $12.7k',ix,iy-13);ctx.restore();
+    ctx.save();ctx.fillStyle='#0C447C';ctx.font='10px system-ui,Arial';ctx.textAlign='left';
+    ctx.fillText('\u2190 Floor $7k',sc.x.getPixelForValue(7000)+5,ca.top+16);ctx.restore();
+    ctx.save();ctx.fillStyle='#791F1F';ctx.font='10px system-ui,Arial';ctx.textAlign='right';
+    ctx.fillText('Ceiling $15k \u2192',sc.x.getPixelForValue(15000)-5,ca.top+16);ctx.restore();
+  }};
+
+  new Chart(document.getElementById('dC4'),{
+    type:'line',
+    plugins:[zonePlug,annPlug],
+    data:{datasets:[
+      {label:'D(Y)',data:curve,borderColor:'#534AB7',borderWidth:2.5,pointRadius:0,fill:false,tension:0.2,order:1},
+      {label:'DNQ supply',data:[{x:7000,y:0.3},{x:15000,y:0.3}],borderColor:'#A32D2D',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,order:2},
+      {label:'Solved supply',data:[{x:7000,y:1.9},{x:15000,y:1.9}],borderColor:'#1D9E75',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,order:3},
+      {label:'Floor supply',data:[{x:7000,y:6.0},{x:15000,y:6.0}],borderColor:'#378ADD',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,order:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{filter:i=>i.datasetIndex===0,callbacks:{label:c=>`D($${(c.parsed.x/1000).toFixed(1)}k) = ${c.parsed.y.toFixed(2)} bookings/day`}}},
+      scales:{
+        x:{type:'linear',min:6500,max:15500,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'k',color:TK,font:{size:10},stepSize:1000},grid:{color:GR},title:{display:true,text:'Yield ($/EFT hr)',color:TK,font:{size:11}}},
+        y:{min:0,max:7.5,ticks:{callback:v=>v.toFixed(0),color:TK,font:{size:10},stepSize:1},grid:{color:GR},title:{display:true,text:'Expected bookings / day',color:TK,font:{size:11}}}
+      }
+    }
+  });
+}
+
+setTimeout(()=>{if(!_di.ov){_dC1();_di.ov=true;}},35);
+</script>
