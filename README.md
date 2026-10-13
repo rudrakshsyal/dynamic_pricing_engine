@@ -4,6 +4,8 @@ A supply–demand equilibrium dynamic pricing engine for **one NREG Challenger f
 
 The business goal is to produce a **pricing recommendation grid for fleet pricing managers and revenue leadership**: a date-by-date view of remaining capacity, expected demand, recommended yield, and pricing status to support fleet pricing decisions.
 
+This repository is a learning and portfolio rebuild of an earlier production dynamic pricing project at Vista Tech LLC (FLYXO), as described in the project handoff. The rebuild uses anonymised data. Production deployment history and impact are separate from the local notebook results reported here.
+
 The current analysis focuses on Challenger 300 and Challenger 350 aircraft, with North America departure filters in the flight-leg and quote pipelines. The notebooks refer to this scope as **NREG US**. Historical analysis covers 2024–2025, and the saved forecast run covers **January 1–May 31, 2026**.
 
 **Current status:** the repository contains nine analysis/modeling notebooks, a reusable supply calculation module, and HTML visualizations. Execution requires external CSV inputs that are not included. `main.py` is a scaffold that prints a greeting; the working pipeline is in the notebooks.
@@ -27,7 +29,7 @@ The implemented solver generates the underlying grid as a table with one row per
 
 The repository includes this generated-table workflow and visualizations. A deployed manager-facing grid and integration into operational pricing decisions remain outside the checked-in implementation.
 
-Here, **yield** means revenue per estimated flight-time hour, expressed in the notebooks as **$/EFT hour**. The solver finds a supply–demand clearing yield within configured bounds. It does not directly maximize profit or model operating costs.
+Here, **yield** means revenue per estimated flight-time hour, expressed in the notebooks as **$/EFT hour**. The solver finds a supply–demand clearing yield within configured bounds. Clearing refers to expected bookings, not a guarantee that every leg sells. Revenue or profit optimality would require additional assumptions about price response, flight duration, costs, and capacity; the current solver does not directly optimise those objectives.
 
 ## What has been implemented
 
@@ -44,7 +46,7 @@ Here, **yield** means revenue per estimated flight-time hour, expressed in the n
 
 ## Data overview
 
-The notebooks read three CSV files from `data/raw/`. The source organization, collection method, real-versus-synthetic status, and redistribution terms are not documented in the current repository. No public dataset download is provided.
+The notebooks read three CSV files from `data/raw/`. The project handoff identifies these as anonymised data used for a rebuild of the Vista/FLYXO pricing project. The raw extraction and anonymisation procedures are not documented here. Raw data is not redistributed, and no public dataset download is provided.
 
 The counts below come from saved notebook outputs, not a fresh execution against the source files.
 
@@ -224,16 +226,50 @@ Download or clone the repository and open the HTML files in a browser:
 
 The root-level dashboards are explanatory presentations with embedded examples. Their model descriptions and January-only figures differ from the executable notebooks: for example, the supply dashboard mentions XGBoost and a maintenance-schedule hybrid, while the checked-in forecast code uses Prophet and the baselines described above. Use notebook code and recorded outputs for implementation details.
 
+## Design intent versus current implementation
+
+The project handoff provides business context and an earlier January-only snapshot. Where it differs from the current executable code, this README describes the code:
+
+| Topic | Handoff / design intent | Current repository |
+| --- | --- | --- |
+| Horizon | January 2026; 16 DNQ, 10 solved, 5 floor dates | January–May 2026; 151 dates with the results reported above. Earlier January figures are not a fresh validation of this run. |
+| Non-program consumption | Non-program **non-OD** legs, with existing OD bookings deducted separately | All non-program live legs, including OD, are forecast; the default existing-OD input is empty. Category definitions need reconciliation. |
+| Non-program model | Seasonal mean | Notebook 04 exports Prophet predictions even though the baseline has slightly lower validation RMSE. |
+| Environment | Python 3.12 and MLflow mentioned | Project metadata requires Python >=3.14; MLflow is not declared as a dependency. |
+| Pricing ceiling | Earlier chart housekeeping pending | Notebook 09 already defines a $15,000 ceiling. |
+
+The intended next iteration should first define the grid's solve date, departure-date horizon, and mutually exclusive commitment categories. Then align expected **remaining** demand to each departure date using booking lead times and information available at the solve date.
+
 ## Current limitations and next steps
 
 - **Reproduction:** notebook 06 loads `df_legs_raw` but references an undefined `df_legs_raw_sample` during revenue enrichment. Resolve that variable and confirm the intended scope before a clean run. Some day-of-week plots use a 0–6 index against Polars weekday values of 1–7.
 - **Time alignment:** demand is forecast by quote-creation date, then joined directly to supply by departure date. A booking-lead-time mapping is needed to establish departure-date demand properly.
 - **Supply accounting:** non-program forecasts already include historical on-demand legs. Define how additional current OD bookings relate to that forecast before using a nonempty bookings dictionary, to avoid overlapping consumption. Forecast aircraft count and productivity are fixed assumptions.
-- **Model validation:** quote forecasts lack a recorded holdout evaluation; the conversion R² measures fit to historical binned data. Add time-based backtests and end-to-end evaluation before using the recommendations operationally.
-- **Price-response assumptions:** booked and unbooked yields come from different sources, many booked yields remain missing, and the quote-count curve averages observed date/bin counts. Assess selection bias and test whether the response estimates generalize.
+- **Model validation:** quote forecasts lack a recorded holdout evaluation; the conversion R² measures fit to historical binned data. Missing 2026 actuals do not prevent rolling-origin backtests within 2024–2025. Keep future booking statuses and realised revenue out of features available at each historical solve date. Forecast accuracy can be backtested; historical realised revenue alone cannot establish the revenue that a different pricing policy would have earned.
+- **Price-response assumptions:** booked and unbooked yields come from different sources, and 43.9% of booked quotes still lack yield. Dropping these bookings can distort both the conversion level and curve shape; the direction and size of bias need assessment. The quote-count curve measures observed counts per price bin, which does not establish how inquiry volume changes when price changes. Compare a constant quote-count multiplier of 1 with LOWESS, and test conversion fits restricted to the operating price window before choosing a revised model.
 - **Configuration consistency:** notebook 08 uses a $6,000 plotting/parameter floor while notebook 09 uses $7,000. Its normalized composite-demand plot also differs from the solver's booking-unit formula. Some labels and filenames still say January despite the 151-day horizon.
 - **Operationalization:** there is no implemented service/API, automated retraining workflow, or test suite in the current tree. Packaging the notebook stages into a configurable pipeline, validating data contracts, and adding forecast/solver tests are future work.
 
 ## Author and license
 
 Created by [Rudraksh Syal](https://github.com/rudrakshsyal). No license file is included in the repository; data access and reuse terms also need to be specified.
+
+
+## On-demand revenue explanation
+
+The read-only RCA interface explains a selected saved recommendation using supply, demand and solver evidence. It includes capacity and demand charts, a short revenue brief, and expandable source details. It does not change prices or train models.
+
+```bash
+uv sync
+uv run --with "streamlit==1.58.0" streamlit run app.py --server.address 127.0.0.1
+```
+
+Set `OPENAI_API_KEY` in the launching terminal to enable **Explain**. Charts and calculations work without an API key. Model calls happen only when Explain is clicked. The default model is `gpt-5.5`; choose a model available to your API project in the sidebar.
+
+Supply these saved files locally under `data/processed/`: `optimal_yield_per_date.parquet`, `jan2026_od_supply.parquet`, `jan2026_may2026_quotes_forecast.parquet`, and `elasticity_params.json`. The adapter also reads constants from `notebooks/09_solver.ipynb`. Datasets are not included in this code update. See [RCA setup and limitations](docs/RCA_QUICKSTART.md). The interface reconstructs the saved calculation, not a historical execution trace.
+
+Run offline and mocked-agent checks with:
+
+```bash
+uv run --with "streamlit==1.58.0" python -m unittest discover -s tests -v
+```

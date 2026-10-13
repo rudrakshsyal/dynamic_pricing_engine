@@ -14,6 +14,7 @@ dependencies = [
     "nbformat>=5.10.4",
     "notebook>=7.5.7",
     "numpy>=2.4.6",
+    "openai-agents==0.23.1",
     "optuna>=4.9.0",
     "pandas>=3.0.3",
     "plotly>=6.8.0",
