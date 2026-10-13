@@ -43,7 +43,7 @@ class AppTests(unittest.TestCase):
         self.assertIn('narrative', self.app.session_state)
         self.app.run()
         self.assertEqual(self.mock.await_count, 1)
-        self.app.text_input[0].set_value('different-model').run()
+        [x for x in self.app.text_input if x.label == "OpenAI model"][0].set_value('different-model').run()
         self.assertNotIn('narrative', self.app.session_state)
         self.assertEqual(self.mock.await_count, 1)
 
@@ -69,3 +69,18 @@ class AppTests(unittest.TestCase):
         self.assertIn("unrecognized evidence", self.app.error[0].value)
         self.assertNotIn("billing", self.app.error[0].value)
         self.assertNotIn("narrative", self.app.session_state)
+
+    def test_chat_only_on_submit_and_reset(self):
+        reply = {'status':'answered','answer':'No capacity remains.','evidence_refs':['recommendation.od_supply'],'data_team_question':''}
+        with patch('src.rca_chat.ask_about_date',new_callable=AsyncMock,return_value=reply) as chat:
+            self.app.run()
+            chat.assert_not_called()
+            [x for x in self.app.text_input if x.label == "Your question"][0].set_value('Why?').run()
+            [b for b in self.app.button if b.label == 'Ask'][0].click().run()
+            self.assertFalse(self.app.exception)
+            self.assertEqual(chat.await_count,1)
+            self.assertEqual(len(self.app.session_state['date_chat']),1)
+            self.app.run()
+            self.assertEqual(chat.await_count,1)
+            [x for x in self.app.text_input if x.label == "OpenAI model"][0].set_value('other-model').run()
+            self.assertEqual(self.app.session_state['date_chat'],[])

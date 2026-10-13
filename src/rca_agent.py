@@ -1,6 +1,7 @@
 """Optional OpenAI agent. SDK imports are lazy so offline reports need no API."""
 import json
 import os
+import re
 
 
 class ExplanationValidationError(ValueError):
@@ -24,8 +25,58 @@ def validate_explanation(payload, report, used_tools):
         refs = finding["evidence_refs"]
         if not refs or any(ref not in report["facts"] for ref in refs):
             raise ExplanationValidationError("The AI cited missing or unrecognized evidence, so its explanation was withheld. Click Explain to retry.")
-    # Structural validation cannot prove free-text statements are semantically correct.
+    findings = payload["findings"]
+    if len(findings) != 3:
+        raise ExplanationValidationError("The brief must contain three short insights. Click Explain to retry.")
+    for index, finding in enumerate(findings):
+        prose = finding["explanation"]
+        if not prose.strip() or len(prose.split()) > 18:
+            raise ExplanationValidationError("The AI brief exceeded the length limit. Click Explain to retry.")
+        if re.search(r"\b(?:recommendation|supply|demand|quotes|solver)\.|\w+_\w+", prose):
+            raise ExplanationValidationError("The AI included internal field names. Click Explain to retry.")
+        if index == 1 and re.search(r"\b(?:hours?|hrs?)\b", prose, re.I):
+            raise ExplanationValidationError("The AI used incorrect capacity units. Click Explain to retry.")
+        if re.search(r"\b(?:guaranteed?|guarantees|profit.maximi[sz]ing|revenue.maximi[sz]ing)\b", prose, re.I):
+            raise ExplanationValidationError("The AI made an unsupported business claim. Click Explain to retry.")
+        # Every displayed number must match a cited numeric value at its displayed precision.
+        values = [report["facts"][ref] for ref in finding["evidence_refs"]
+                  if isinstance(report["facts"][ref], (int, float)) and not isinstance(report["facts"][ref], bool)]
+        for token in re.findall(r"(?<![\w.])-?\d[\d,]*(?:\.\d+)?%?", prose):
+            percent = token.endswith("%")
+            clean = token.rstrip("%").replace(",", "")
+            decimals = len(clean.split(".")[1]) if "." in clean else 0
+            if not any(abs(float(clean) - round(value * (100 if percent else 1), decimals)) < 1e-8 for value in values):
+                raise ExplanationValidationError("The AI used a number unsupported by its citations. Click Explain to retry.")
+    decision = findings[0]["explanation"].lower()
+    status = report["facts"].get("recommendation.solver_status")
+    required = {"DNQ_zero_supply": r"do not quote|dnq", "demand_below_floor": r"\bfloor\b",
+                "demand_above_ceiling": r"\bceiling\b", "solved": r"match|balanc|align|cross"}
+    if status not in required or not re.search(required[status], decision):
+        raise ExplanationValidationError("The brief did not explain the saved pricing outcome. Click Explain to retry.")
+    forbidden = {"solved": r"do not quote|\bdnq\b|\bfloor\b|\bceiling\b",
+                 "demand_below_floor": r"do not quote|\bdnq\b|\bceiling\b",
+                 "demand_above_ceiling": r"do not quote|\bdnq\b|\bfloor\b"}
+    if status in forbidden and re.search(forbidden[status], decision):
+        raise ExplanationValidationError("The brief contradicts the saved pricing outcome. Click Explain to retry.")
+    # These targeted checks are not a general proof of semantic correctness.
     return payload
+
+
+async def run_validated(agent, prompt, validator, max_turns):
+    """At most one correction for invalid model output; never retry provider failures here."""
+    from agents import Runner, RunConfig
+    for attempt in range(2):
+        result = await Runner.run(agent, prompt, max_turns=max_turns,
+                                  run_config=RunConfig(tracing_disabled=True))
+        try:
+            return validator(result.final_output.model_dump()), attempt
+        except ExplanationValidationError as exc:
+            if attempt:
+                raise
+            # Preserve retrieved tool evidence, not just the failed prose.
+            prompt = result.to_input_list() + [{'role': 'user', 'content':
+                'Correct the prior response to satisfy validation: ' + str(exc) +
+                ' Use the retrieved evidence; do not invent facts. Return the required structured output.'}]
 
 
 async def explain_with_agent(report, model):
@@ -77,8 +128,8 @@ async def explain_with_agent(report, model):
         instructions=(
             "Explain the selected SAVED pricing recommendation to revenue leadership. "
             "Call all three evidence tools before answering. They are bound to one fixed date/snapshot. "
-            "Return exactly 3 findings in this order: decision, capacity, demand. "
-            "Each finding is one sentence, at most 18 words. Use actual numeric VALUES with units, never field names or code in explanation text. Keep technical keys ONLY in evidence_refs. No headings, jargon, or repeated arithmetic. "
+            "Return exactly 3 findings in this order: decision, capacity, demand. In the decision, explicitly say do not quote for DNQ, floor or ceiling for a bound, or demand matches capacity for solved. "
+            "Each finding is one sentence, at most 18 words. Use actual numeric VALUES with units, never field names or code in explanation text. Keep technical keys ONLY in evidence_refs. No headings, jargon, or repeated arithmetic. Every number must be supported by a numeric evidence_ref cited in that finding; use at most two decimals. "
             "Capacity and supply deductions are measured in forecast LEGS, never hours. "
             "Demand is expected BOOKINGS; enquiries are quote counts. Only YIELD has units USD per estimated flight-time hour. "
             "Start with why the saved yield or DNQ was selected. Use plain language. Each finding "
@@ -94,12 +145,9 @@ async def explain_with_agent(report, model):
         tools=[read_supply_evidence, read_demand_evidence, read_solver_evidence],
         output_type=Explanation,
     )
-    result = await Runner.run(
+    payload, corrections = await run_validated(
         agent, f"Explain the saved recommendation for {report['departure_date']}.",
-        max_turns=8,
-        run_config=RunConfig(tracing_disabled=True),
-    )
-    payload = validate_explanation(result.final_output.model_dump(), report, used)
+        lambda payload: validate_explanation(payload, report, used), max_turns=8)
     return {"model": model, "tool_calls": used, "snapshot_id": report["snapshot_id"],
-            "explanation": payload,
-            "validation": "Tool coverage and evidence references checked; prose requires evaluation."}
+            "explanation": payload, "correction_attempts": corrections,
+            "validation": "Tool coverage, citations, length, numeric grounding and selected wording checks passed; interpretation still requires review."}

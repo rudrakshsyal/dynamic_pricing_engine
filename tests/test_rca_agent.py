@@ -23,8 +23,7 @@ class AgentWiringTests(unittest.TestCase):
                 self.assertEqual(tool.params_json_schema['properties'], {})
                 result = await tool.on_invoke_tool(ToolContext(context=None, tool_name=tool.name, tool_call_id='test', tool_arguments='{}'), '{}')
                 self.assertIn('test', result)
-            result = agent.output_type(findings=[{'explanation': 'The saved status is DNQ.',
-                'evidence_refs': ['recommendation.solver_status']}], unresolved_questions=[])
+            result = agent.output_type(findings=[{'explanation': text, 'evidence_refs': ['recommendation.solver_status']} for text in ['Do not quote: no capacity remains.', 'No remaining capacity is forecast.', 'No selling price was selected.']], unresolved_questions=[])
             return SimpleNamespace(final_output=result)
         with patch.dict(os.environ, {'OPENAI_API_KEY': 'test-not-a-real-key'}), patch('agents.Runner.run', side_effect=fake_run):
             result = asyncio.run(explain_with_agent(report, 'test-model'))
@@ -39,3 +38,31 @@ class AgentWiringTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class BriefValidationTests(unittest.TestCase):
+    def test_all_outcomes_and_known_failures(self):
+        import copy
+        from src.rca_agent import validate_explanation, ExplanationValidationError
+        tools = ['read_supply_evidence', 'read_demand_evidence', 'read_solver_evidence']
+        for status, sentence in [('solved', 'Forecast demand matches remaining capacity.'),
+                                 ('DNQ_zero_supply', 'Do not quote: no capacity remains.'),
+                                 ('demand_below_floor', 'The price floor applies because demand is below capacity.'),
+                                 ('demand_above_ceiling', 'The price ceiling applies because demand still exceeds capacity.')]:
+            report = {'facts': {'recommendation.solver_status': status, 'supply.remaining': 1.22, 'demand.bookings': 1.22}}
+            payload = {'findings': [
+                {'explanation': sentence, 'evidence_refs': ['recommendation.solver_status']},
+                {'explanation': 'Remaining capacity is 1.22 legs.', 'evidence_refs': ['supply.remaining']},
+                {'explanation': 'Forecast demand is 1.22 bookings.', 'evidence_refs': ['demand.bookings']}], 'unresolved_questions': []}
+            with self.subTest(status=status):
+                self.assertEqual(validate_explanation(payload, report, tools), payload)
+            for bad in ['Capacity is supply.remaining.', 'Remaining capacity is 1.22 hours.',
+                        'Remaining capacity is 9.99 legs.', 'Guaranteed bookings fill capacity.', 'word ' * 19]:
+                mutated = copy.deepcopy(payload)
+                mutated['findings'][1]['explanation'] = bad
+                with self.subTest(status=status, bad=bad), self.assertRaises(ExplanationValidationError):
+                    validate_explanation(mutated, report, tools)
+            mutated = copy.deepcopy(payload)
+            mutated['findings'][0]['explanation'] = 'A different price was selected.'
+            with self.assertRaises(ExplanationValidationError):
+                validate_explanation(mutated, report, tools)

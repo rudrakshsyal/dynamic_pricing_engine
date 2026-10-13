@@ -99,6 +99,7 @@ class EvidenceTests(unittest.TestCase):
         with self.assertRaises(ValueError): validate_explanation(payload, report, names)
         payload['findings'][0]['evidence_refs'] = ['recommendation.solver_status']
         with self.assertRaises(ValueError): validate_explanation(payload, report, [])
+        payload['findings'] = [{'explanation': text, 'evidence_refs': ['recommendation.solver_status']} for text in ['Do not quote: no capacity remains.', 'No remaining capacity is forecast.', 'No selling price was selected.']]
         self.assertEqual(validate_explanation(payload, report, names), payload)
 
 

@@ -8,7 +8,7 @@ This repository is a learning and portfolio rebuild of an earlier production dyn
 
 The current analysis focuses on Challenger 300 and Challenger 350 aircraft, with North America departure filters in the flight-leg and quote pipelines. The notebooks refer to this scope as **NREG US**. Historical analysis covers 2024–2025, and the saved forecast run covers **January 1–May 31, 2026**.
 
-**Current status:** the repository contains nine analysis/modeling notebooks, a reusable supply calculation module, and HTML visualizations. Execution requires external CSV inputs that are not included. `main.py` is a scaffold that prints a greeting; the working pipeline is in the notebooks.
+**Current status:** nine modeling notebooks feed a local Streamlit pricing interface with charts, an on-demand revenue brief, and read-only follow-up chat. An isolated benchmark compares the existing forecasts with LLM replacements. Historical inputs and saved forecast datasets must be supplied locally. `main.py` remains a greeting scaffold; use `app.py` for the interface or the module commands below.
 
 ## Business objective and intended users
 
@@ -43,6 +43,10 @@ Here, **yield** means revenue per estimated flight-time hour, expressed in the n
 - **Price-response estimation:** a normalized LOWESS quote-count curve and an exponential conversion-probability curve.
 - **Daily pricing solver:** bounded root finding, floor/ceiling handling, and a do-not-quote signal for dates with zero residual capacity.
 - **Saved visualizations:** quote forecasts, elasticity curves, solver recommendations, and explanatory supply/demand dashboards.
+- **Revenue interface:** capacity waterfall, demand-versus-capacity chart, and short explanations with expandable evidence.
+- **Read-only agent and chat:** OpenAI Agents SDK tools bound to one date and evidence snapshot, validation checks, and draft data-team questions.
+- **Model benchmark:** rolling-origin refits, optional structured LLM forecasts and curves, component error metrics, and pricing diagnostics.
+- **Tests:** synthetic evidence, solver branches, SDK wiring, UI interactions, bounded correction attempts, benchmark validation and caching.
 
 ## Data overview
 
@@ -198,7 +202,7 @@ cd notebooks
 uv run jupyter lab
 ```
 
-Run the notebooks in the numbered order, using the project environment as the kernel. Review the reproduction issues below first; this is not yet a verified clean-run pipeline. Installing the environment and rerunning models requires the external data and was not performed for this documentation update.
+Run the notebooks in the numbered order, using the project environment as the kernel. Review the reproduction issues below first; this is not yet a verified clean-run pipeline. The full notebook pipeline has not been verified from a clean checkout. The separate benchmark has been run against locally available processed historical tables.
 
 Once upstream artifacts exist, the supply function can also be called from the repository root:
 
@@ -245,31 +249,108 @@ The intended next iteration should first define the grid's solve date, departure
 - **Reproduction:** notebook 06 loads `df_legs_raw` but references an undefined `df_legs_raw_sample` during revenue enrichment. Resolve that variable and confirm the intended scope before a clean run. Some day-of-week plots use a 0–6 index against Polars weekday values of 1–7.
 - **Time alignment:** demand is forecast by quote-creation date, then joined directly to supply by departure date. A booking-lead-time mapping is needed to establish departure-date demand properly.
 - **Supply accounting:** non-program forecasts already include historical on-demand legs. Define how additional current OD bookings relate to that forecast before using a nonempty bookings dictionary, to avoid overlapping consumption. Forecast aircraft count and productivity are fixed assumptions.
-- **Model validation:** quote forecasts lack a recorded holdout evaluation; the conversion R² measures fit to historical binned data. Missing 2026 actuals do not prevent rolling-origin backtests within 2024–2025. Keep future booking statuses and realised revenue out of features available at each historical solve date. Forecast accuracy can be backtested; historical realised revenue alone cannot establish the revenue that a different pricing policy would have earned.
+- **Model validation:** the original quote notebook lacks a recorded holdout evaluation; the separate benchmark now evaluates historical quote forecasts. The conversion R² measures fit to historical binned data. Missing 2026 actuals do not prevent rolling-origin backtests within 2024–2025. Keep future booking statuses and realised revenue out of features available at each historical solve date. Forecast accuracy can be backtested; historical realised revenue alone cannot establish the revenue that a different pricing policy would have earned.
 - **Price-response assumptions:** booked and unbooked yields come from different sources, and 43.9% of booked quotes still lack yield. Dropping these bookings can distort both the conversion level and curve shape; the direction and size of bias need assessment. The quote-count curve measures observed counts per price bin, which does not establish how inquiry volume changes when price changes. Compare a constant quote-count multiplier of 1 with LOWESS, and test conversion fits restricted to the operating price window before choosing a revised model.
 - **Configuration consistency:** notebook 08 uses a $6,000 plotting/parameter floor while notebook 09 uses $7,000. Its normalized composite-demand plot also differs from the solver's booking-unit formula. Some labels and filenames still say January despite the 151-day horizon.
-- **Operationalization:** there is no implemented service/API, automated retraining workflow, or test suite in the current tree. Packaging the notebook stages into a configurable pipeline, validating data contracts, and adding forecast/solver tests are future work.
+- **Operationalization:** a local UI, evidence checks, chat and tests are implemented. A deployed service/API, automated retraining, archived as-of datasets and a verified end-to-end notebook rebuild remain future work. A regional origin–destination grid is deferred; the current outputs have one fleet/date scope.
+
+## Run the revenue interface
+
+```bash
+uv sync --locked
+uv run --with "streamlit==1.58.0" streamlit run app.py --server.address 127.0.0.1
+```
+
+Set `OPENAI_API_KEY` in the launching terminal to enable **Explain** and **Ask about this date**. Neither entry point automatically loads `.env`. The default model is `gpt-5.5`; choose a model available to your API project in the sidebar. Charts and calculations work without a key. Only clicking Explain or submitting a question starts a workflow; an invalid answer may trigger one additional correction attempt. These model calls incur API charges.
+
+Supply the following local evidence files under `data/processed/`:
+
+- `optimal_yield_per_date.parquet`
+- `jan2026_od_supply.parquet`
+- `jan2026_may2026_quotes_forecast.parquet`
+- `elasticity_params.json`
+
+The adapter also reads literal constants from `notebooks/09_solver.ipynb` without executing it. The interface reconstructs saved calculations, not a historical execution trace. It never changes prices or trains models.
+
+The brief checks tool coverage, citations, length, numerical grounding and selected wording rules. These checks do not prove every claim correct. Chat retrieves the same fixed evidence, retains up to four recent exchanges as context, and clears when the date, model or snapshot changes. Unsupported questions can produce a draft for the data team; nothing is sent. Chat has citation and length checks, not the brief's full numerical checks.
+
+The UI uses a persistent async event loop for SDK connections and permits one correction attempt for invalid responses. Restart Streamlit after code updates. These changes address plausible repeated-click causes; they do not establish that every live provider or validation failure is resolved. See [RCA setup and limitations](docs/RCA_QUICKSTART.md).
+
+## Compare existing models with LLM replacements
+
+The benchmark runs separately from the live explanation workflow and never overwrites operational forecasts. It covers four availability rates, program and non-program legs, enquiry counts, the quote-count multiplier and conversion curve. All variants share the deterministic supply calculation and bounded pricing solver.
+
+| Candidate | Daily forecasts | Demand curves |
+| --- | --- | --- |
+| `current_refit` | Current notebook recipes, refitted at the cutoff | Current curves, refitted at the cutoff |
+| `seasonal_naive` | Repeat last week's observations | Current curves |
+| `llm_forecasts_current_curves` | LLM | Current curves |
+| `current_forecasts_llm_curves` | Current recipes | LLM |
+| `llm_full` | LLM | LLM |
+
+The offline benchmark requires `avl_fleet_daily.parquet`, `legs_fleet_daily.parquet`, `quotes_fleet_daily.parquet`, and `quotes_deduped_enriched.parquet` under `data/processed/`:
+
+```bash
+uv run python -m src.model_benchmark --out /tmp/dpe-benchmark
+```
+
+Defaults: three cutoffs in 2025 and 14 held-out days per cutoff. No API calls occur by default. For an explicitly paid, one-cutoff LLM pilot:
+
+```bash
+uv run python -m src.model_benchmark \
+  --out /tmp/dpe-llm-pilot \
+  --origins 2025-11-30 --horizon 14 \
+  --llm --allow-paid --model gpt-5.5 \
+  --max-calls 1 --max-output-tokens 8000
+```
+
+LLM requests contain numerical history and aggregated curve bins, not customer IDs or raw quote rows. Responses are cached by request hash; matching cache entries are reused. Call/token limits are not a dollar cap. The benchmark does not automatically retry paid requests. Failed or invalid LLM outputs are recorded without substituting baseline predictions.
+
+The output directory contains `report.md`, `results.json`, `aggregate_metrics.json`, `pricing_diagnostics.csv`, per-candidate predictions, prepared requests, and LLM usage/cache files. Keep these local and copy temporary output folders somewhere permanent if needed. See the [full experiment plan](docs/MODEL_BENCHMARK_PLAN.md).
+
+### Observed pilot results
+
+One GPT-5.5 call was completed on October 13, 2026, using history through November 30, 2025 to predict December 1–14, 2025. All five candidates completed without recorded failures. This is a small retrospective pilot, not an untouched final holdout: the current recipes were developed using these historical years.
+
+| Forecast | Current MAE | LLM MAE | LLM error change |
+| --- | ---: | ---: | ---: |
+| AOG rate (percentage points) | 2.82 | 4.15 | +47.1% |
+| SMX rate (percentage points) | 1.10 | 1.66 | +50.6% |
+| UMX rate (percentage points) | 4.92 | 5.81 | +18.1% |
+| CNA rate (percentage points) | 1.59 | 1.33 | −16.3% |
+| Program legs/day | 5.11 | 6.64 | +30.1% |
+| Non-program legs/day | 2.24 | 1.93 | −13.8% |
+| Enquiries/day | 14.74 | 14.29 | −3.1% |
+| Remaining-supply proxy (legs/day) | 1.98 | 2.64 | +33.2% |
+
+Negative change means lower MAE. CNA and enquiries improved by MAE but slightly worsened by RMSE. Current forecasts matched the diagnostic reference's decision status on 9/14 days versus 7/14 for the full LLM variant. DNQ disagreement rose from 5 to 6 days. LLM conversion scores were effectively unchanged and slightly worse (Brier 0.05456 versus 0.05452 over 224 eligible rows).
+
+Full-LLM yield MAE against the reference was lower, but measured five non-DNQ dates versus six for the current system; these unequal samples do not support a direct pricing-winner claim. The reference uses realized daily inputs with the current train-only curve and is not a true optimal-price label. No revenue uplift was measured.
+
+The call took approximately 68 seconds, using 67,362 input tokens and 6,107 output tokens. Local run metadata and predictions are retained outside the repository; the figures above summarize those outputs. A separate offline 42-day pilot found current forecasts better than repeat-last-week forecasts by RMSE across all seven daily targets.
+
+**Current conclusion:** retain the existing forecasting engine and LLM explanation layer. Non-program-leg forecasting merits further testing, but this single run does not justify replacing the models. Further evaluation should use more origins, forecast horizons and repeated LLM runs before any approved shadow or controlled pricing trial. Historical conversion labels, mixed yield sources, and enquiry/departure-date alignment remain limitations.
+
+## Application modules and tests
+
+| File | Responsibility |
+| --- | --- |
+| `app.py` | Local charts, brief and read-only chat |
+| `src/rca_tools.py` | Original recommendation and supply lookups |
+| `src/rca_evidence.py` | Saved-file snapshots and deterministic reconciliation |
+| `src/rca_agent.py` | Brief, validation and bounded output correction |
+| `src/rca_chat.py` | Follow-up questions scoped to the selected evidence |
+| `src/agent_runtime.py` | Persistent async loop for UI calls |
+| `src/explain_price.py` | Offline/agent command-line explanation |
+| `src/model_benchmark.py` | Historical baseline and optional LLM comparison |
+
+```bash
+uv run python -m src.explain_price 2026-01-05
+uv run --with "streamlit==1.58.0" python -m unittest discover -s tests -v
+```
+
+Tests use synthetic fixtures and mocked model calls, so running them does not incur API charges. They cover evidence consistency, solver branches, missing data, citation/wording checks, chat scope resets, repeated runtime calls, bounded correction, benchmark metrics, output validation, caching and the paid-call gate. Passing tests does not certify live AI factual accuracy.
 
 ## Author and license
 
 Created by [Rudraksh Syal](https://github.com/rudrakshsyal). No license file is included in the repository; data access and reuse terms also need to be specified.
-
-
-## On-demand revenue explanation
-
-The read-only RCA interface explains a selected saved recommendation using supply, demand and solver evidence. It includes capacity and demand charts, a short revenue brief, and expandable source details. It does not change prices or train models.
-
-```bash
-uv sync
-uv run --with "streamlit==1.58.0" streamlit run app.py --server.address 127.0.0.1
-```
-
-Set `OPENAI_API_KEY` in the launching terminal to enable **Explain**. Charts and calculations work without an API key. Model calls happen only when Explain is clicked. The default model is `gpt-5.5`; choose a model available to your API project in the sidebar.
-
-Supply these saved files locally under `data/processed/`: `optimal_yield_per_date.parquet`, `jan2026_od_supply.parquet`, `jan2026_may2026_quotes_forecast.parquet`, and `elasticity_params.json`. The adapter also reads constants from `notebooks/09_solver.ipynb`. Datasets are not included in this code update. See [RCA setup and limitations](docs/RCA_QUICKSTART.md). The interface reconstructs the saved calculation, not a historical execution trace.
-
-Run offline and mocked-agent checks with:
-
-```bash
-uv run --with "streamlit==1.58.0" python -m unittest discover -s tests -v
-```

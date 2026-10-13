@@ -50,7 +50,7 @@ uv run python -m src.explain_price 2026-01-05 --agent --model YOUR_MODEL_ID
 
 This makes paid model calls and sends the selected date's evidence and caveats to the model. It does not upload raw quote histories. SDK trace export is disabled for this initial version; tool names are returned locally. The engine's stored recommendation is never recalculated or overwritten.
 
-The application enforces a maximum of eight agent turns. The agent must call all three tools and cite valid evidence IDs. Its generated prose is displayed alongside the deterministic report. Reference checks do not establish that every sentence is semantically correct: evaluate the narrative before relying on it. A local Streamlit UI provides an on-demand Explain button. V2 conversational memory is not implemented.
+The brief allows eight agent turns per attempt and at most one correction attempt for invalid output. The agent must call all three tools and cite valid evidence IDs. Its generated prose is displayed alongside the deterministic report. Reference checks do not establish that every sentence is semantically correct: evaluate the narrative before relying on it. A local Streamlit UI provides an on-demand Explain button. Read-only follow-up chat retains the last four exchanges within the selected evidence scope.
 
 ## Important interpretation details
 
@@ -80,7 +80,7 @@ Tests cover solver statuses, missing/invalid dates, duplicates, non-finite numbe
 2. Confirm terminology is understandable to a pricing manager.
 3. Install the SDK, choose a model, and run one agent explanation.
 4. Compare every generated claim with its cited evidence.
-5. Review the same dates in the local interface. Chat and data-team escalation remain V2.
+5. Review the same dates in the local interface. Read-only chat is available; automatic data-team escalation remains deferred.
 
 Official SDK reference: https://developers.openai.com/api/docs/guides/agents/quickstart?lang=python
 
@@ -105,3 +105,26 @@ uv run --with "streamlit==1.58.0" python -m unittest discover -s tests -v
 ```
 
 UI interaction tests use synthetic data and a mocked agent: no API charges. They cover on-demand calls, missing credentials, DNQ presentation, stale explanation clearing on model changes, failed evidence checks and sanitized provider errors. They do not establish the quality of live model prose.
+
+
+## Revenue brief checks
+
+Before displaying an AI brief, the application requires three insights of at most 18 whitespace-separated words each. It rejects internal field names, hours in the capacity insight, selected unsupported business claims, and numbers that do not match cited numeric evidence at the displayed precision. The decision must name the saved outcome (balanced, floor, ceiling or do not quote). Rejected prose is withheld; the saved report remains available. There is at most one additional correction call for invalid AI output; the UI discloses it.
+
+These are targeted checks, not full semantic verification: a number can match evidence while being described incorrectly, and wording rules cannot detect every contradiction. Unresolved data-team questions are not semantically validated. Tests use synthetic examples and a mocked runner, not live model-quality evaluations.
+
+
+## Read-only follow-up chat
+
+Expand **Ask about this date**, type a question, and select **Ask**. Each submission calls the selected model and sends the selected snapshot's evidence, limitations, question, and up to four recent exchanges. No API call occurs simply from typing or rerendering. Chat uses the same API-key environment as Explain.
+
+The agent has one parameterless, read-only tool bound to the selected date. It cannot write prices, access another date through that tool, or send messages. Instructions require declining new-price and what-if requests. Questions that need unavailable evidence receive a draft question for the data team; nothing is transmitted to the team. Citation and response-length checks are enforced, but they cannot prove factual accuracy or perfect adherence to the scope instructions.
+
+Chat is kept in the browser's Streamlit session, with no application database. Changing date, model or snapshot clears the conversation; Clear chat also resets it. Provider retention follows the API project's settings. SDK tracing remains disabled. Current chat tests use a mocked SDK runner and mocked UI agent, not live model evaluations.
+
+
+## Benchmark and runtime update
+
+See [model comparison plan](MODEL_BENCHMARK_PLAN.md) for offline historical evaluation and optional LLM replacement scripts. Benchmarks are separate from the read-only explanation app.
+
+The UI now retains a process-lifetime async event loop for SDK connections. Invalid structured answers can receive one correction attempt using the retrieved evidence, so one button click may make additional model calls. Persistent validation failures remain visible. No paid test was performed; restart the Streamlit process once after updating to ensure old imported modules are replaced.

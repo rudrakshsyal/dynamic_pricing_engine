@@ -2,7 +2,6 @@
 from html import escape
 import altair as alt
 import pandas as pd
-import asyncio
 import json
 import os
 from pathlib import Path
@@ -11,6 +10,8 @@ import streamlit as st
 
 from src.rca_agent import explain_with_agent, explanation_error_message
 from src.rca_evidence import EvidenceStore, ROOT
+from src.rca_chat import ask_about_date
+from src.agent_runtime import run_agent
 
 st.set_page_config(page_title="DPE | Explain a price", page_icon="✈", layout="wide")
 st.markdown("""<style>
@@ -33,8 +34,8 @@ with st.sidebar:
     model = st.text_input("OpenAI model", value="gpt-5.5").strip()
     has_key = bool(os.environ.get("OPENAI_API_KEY"))
     st.caption("API key available" if has_key else "Set OPENAI_API_KEY in the terminal before launching.")
-    st.caption("An AI call is made only when you click Explain. The selected date’s evidence is sent to OpenAI.")
-    st.caption("Regional pricing and follow-up chat are planned separately.")
+    st.caption("AI calls occur on Explain or Ask, with up to one correction attempt. The selected date’s evidence is sent to OpenAI.")
+    st.caption("Chat answers use this date’s evidence. Questions are not sent to the data team.")
 
 try:
     store = EvidenceStore(Path(os.environ.get("DPE_REPO_ROOT", str(ROOT))))
@@ -102,9 +103,10 @@ with right:
     st.caption("Dots: expected bookings. Dashed line: available legs." if not dnq else "No selling price. Dots show model demand only.")
 st.caption("Based on saved forecasts. Assumptions and limitations below.")
 
-request_key = (selected, report["snapshot_id"], model, "leadership-v3")
+request_key = (selected, report["snapshot_id"], model, "runtime-v5")
 if st.session_state.get("active_request") != request_key:
     st.session_state["active_request"] = request_key
+    st.session_state["date_chat"] = []
     st.session_state.pop("narrative", None)
     st.session_state.pop("explanation_error", None)
 
@@ -113,7 +115,7 @@ if st.button("Explain", type="primary", disabled=not has_key or not model):
     st.session_state.pop("explanation_error", None)
     try:
         with st.spinner("Reading supply, demand and solver evidence…"):
-            st.session_state["narrative"] = asyncio.run(explain_with_agent(report, model))
+            st.session_state["narrative"] = run_agent(explain_with_agent(report, model))
     except Exception as exc:
         # Never render raw provider errors, credentials, or stack traces in the UI.
         st.session_state["explanation_error"] = explanation_error_message(exc)
@@ -136,6 +138,35 @@ if narrative:
         st.caption("AI-generated interpretation; references checked. Questions are drafts, not sent.")
 else:
     st.caption("Explain adds a short revenue brief.")
+
+with st.expander("Ask about this date", expanded=False):
+    st.caption("Read-only · Last four exchanges used as context · Each question makes an AI call.")
+    if st.button("Clear chat"):
+        st.session_state["date_chat"] = []
+    with st.form("date_question", clear_on_submit=True):
+        question = st.text_input("Your question", placeholder="Why is capacity limited on this date?", max_chars=1000)
+        send = st.form_submit_button("Ask", disabled=not has_key or not model)
+    if send and question.strip():
+        try:
+            with st.spinner("Checking this date’s evidence…"):
+                response = run_agent(ask_about_date(report, question, st.session_state.get("date_chat", []), model))
+            st.session_state.setdefault("date_chat", []).append({"question": question, "response": response})
+        except Exception as exc:
+            st.error(explanation_error_message(exc))
+    for exchange in st.session_state.get("date_chat", []):
+        with st.chat_message("user"):
+            st.text(exchange["question"])
+        with st.chat_message("assistant"):
+            answer = exchange["response"]
+            st.text(answer["answer"])
+            if answer["status"] == "needs_data":
+                st.caption("For the data team · draft only, not sent")
+                st.text(answer["data_team_question"])
+            if answer["evidence_refs"]:
+                with st.expander("Answer sources"):
+                    for ref in answer["evidence_refs"]:
+                        st.text(f"{ref}: {report['notes'] if ref == 'limitations' else report['facts'][ref]}")
+    st.caption("AI interpretation; citation checks do not prove every claim is correct.")
 
 st.divider()
 with st.expander("Supply calculation"):
