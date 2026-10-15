@@ -1,0 +1,38 @@
+{
+  "aog_rate": {
+    "trial_id": "ca9963f91dd90846",
+    "reason": "Current baseline effectively tied with 28-day rolling (difference negligible); lower weekday bias and avoids unnecessary switch."
+  },
+  "smx_rate": {
+    "trial_id": "1205226dc2e6e53f",
+    "reason": "Ridge recent-lag model improves pooled RMSE versus current with acceptable fold stability despite late-fold negative bias."
+  },
+  "umx_rate": {
+    "trial_id": "9a191d4bad1f2861",
+    "reason": "Current beats tested ridge materially and has more stable fold errors."
+  },
+  "cna_rate": {
+    "trial_id": "a507de7fc6fd2247",
+    "reason": "Current beats rolling mean and avoids rolling model's large systematic bias on sparse low-rate series."
+  },
+  "program_live_legs": {
+    "trial_id": "af5c43fd109ddd70",
+    "reason": "Current outperforms ridge and has stable horizon MAE."
+  },
+  "non_program_live_legs": {
+    "trial_id": "a312b9b63a3c9d18",
+    "reason": "Current outperforms ridge clearly with balanced fold bias."
+  },
+  "daily_quote_count": {
+    "trial_id": "552afe90cbf36cee",
+    "reason": "Current remains best; ridge and seasonal naive overfit/lag trend with much higher RMSE."
+  },
+  "quote_multiplier": {
+    "trial_id": "ab23ba2d6e7c2930",
+    "reason": "Current lowess has best bin MAE; shrink and constant alternatives are worse."
+  },
+  "conversion": {
+    "trial_id": "0d3c0c0d2c727a1c",
+    "reason": "Isotonic gives the best pooled log loss by a small margin with similar fold behavior to current."
+  }
+}

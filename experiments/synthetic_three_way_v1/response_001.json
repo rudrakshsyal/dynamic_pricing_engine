@@ -1,0 +1,17 @@
+{
+  "id": "resp_0925e540888dda73016ad050e0c97087d0b67384ff540e4e59",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"components\":[\"aog_rate\",\"smx_rate\",\"umx_rate\",\"cna_rate\",\"program_live_legs\",\"non_program_live_legs\",\"daily_quote_count\",\"quote_multiplier\",\"conversion\"]}",
+      "call_id": "call_ImTK1Tf6ydCxYIlI5i1pQTD7",
+      "name": "inspect_components",
+      "type": "function_call",
+      "id": "fc_0925e540888dda73016ad050e3507c87d0914044fb9861dc67",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

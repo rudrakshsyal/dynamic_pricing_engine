@@ -1,0 +1,152 @@
+{
+  "cap_usd": "4",
+  "accounted_usd": "2.143795",
+  "remaining_usd": "1.856205",
+  "pricing": "Standard GPT-5.5, uncached input $5/M, output $30/M; cached discounts ignored conservatively",
+  "stopped": false,
+  "requests": [
+    {
+      "request": 1,
+      "input_tokens_counted": 961,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.109805",
+      "status": "completed",
+      "input_tokens": 961,
+      "output_tokens": 53,
+      "accounted_usd": "0.006395",
+      "response_id": "resp_0925e540888dda73016ad050e0c97087d0b67384ff540e4e59"
+    },
+    {
+      "request": 2,
+      "input_tokens_counted": 2724,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.11862",
+      "status": "completed",
+      "input_tokens": 2724,
+      "output_tokens": 119,
+      "accounted_usd": "0.01719",
+      "response_id": "resp_0925e540888dda73016ad050e4eb2487d0bddcf80126adf791"
+    },
+    {
+      "request": 3,
+      "input_tokens_counted": 2867,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.119335",
+      "status": "completed",
+      "input_tokens": 2867,
+      "output_tokens": 252,
+      "accounted_usd": "0.021895",
+      "response_id": "resp_0925e540888dda73016ad050e8ba4087d0935b11170dafd460"
+    },
+    {
+      "request": 4,
+      "input_tokens_counted": 5853,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.134265",
+      "status": "completed",
+      "input_tokens": 5853,
+      "output_tokens": 509,
+      "accounted_usd": "0.044535",
+      "response_id": "resp_0925e540888dda73016ad050ef4ae087d0b7b43a644fa524d9"
+    },
+    {
+      "request": 5,
+      "input_tokens_counted": 9102,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.15051",
+      "status": "completed",
+      "input_tokens": 9102,
+      "output_tokens": 166,
+      "accounted_usd": "0.05049",
+      "response_id": "resp_0925e540888dda73016ad050f7299c87d09610d74dd931d57a"
+    },
+    {
+      "request": 6,
+      "input_tokens_counted": 9780,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.1539",
+      "status": "completed",
+      "input_tokens": 9780,
+      "output_tokens": 165,
+      "accounted_usd": "0.05385",
+      "response_id": "resp_0925e540888dda73016ad050fb448887d0a8daf59ca9c1ea9c"
+    },
+    {
+      "request": 7,
+      "input_tokens_counted": 9968,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.15484",
+      "status": "completed",
+      "input_tokens": 9968,
+      "output_tokens": 120,
+      "accounted_usd": "0.05344",
+      "response_id": "resp_0925e540888dda73016ad050fe42a887d0a529a322796b5b1c"
+    },
+    {
+      "request": 8,
+      "input_tokens_counted": 14298,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.17649",
+      "status": "completed",
+      "input_tokens": 14298,
+      "output_tokens": 54,
+      "accounted_usd": "0.07311",
+      "response_id": "resp_0925e540888dda73016ad051013c3487d09d7f6d2bf465d2d9"
+    },
+    {
+      "request": 9,
+      "input_tokens_counted": 14983,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.179915",
+      "status": "completed",
+      "input_tokens": 14983,
+      "output_tokens": 428,
+      "accounted_usd": "0.087755",
+      "response_id": "resp_0925e540888dda73016ad051033c6087d0a305b7ab74d57030"
+    },
+    {
+      "request": 10,
+      "input_tokens_counted": 15816,
+      "max_output_tokens": 3500,
+      "reserved_usd": "0.18408",
+      "status": "completed",
+      "input_tokens": 15816,
+      "output_tokens": 337,
+      "accounted_usd": "0.08919",
+      "response_id": "resp_0925e540888dda73016ad051095b1087d09836d93c7721bc85"
+    },
+    {
+      "request": 11,
+      "input_tokens_counted": 80934,
+      "max_output_tokens": 4000,
+      "reserved_usd": "0.52467",
+      "status": "completed",
+      "input_tokens": 80934,
+      "output_tokens": 3078,
+      "accounted_usd": "0.49701",
+      "response_id": "resp_0810aec6e9a9904f016ad0510f5e3087d0a569d1340438f589"
+    },
+    {
+      "request": 12,
+      "input_tokens_counted": 92362,
+      "max_output_tokens": 4000,
+      "reserved_usd": "0.58181",
+      "status": "completed",
+      "input_tokens": 92362,
+      "output_tokens": 2538,
+      "accounted_usd": "0.53795",
+      "response_id": "resp_01fc12ee463ee66b016ad0512cfb0487d09802e02c81879703"
+    },
+    {
+      "request": 13,
+      "input_tokens_counted": 103729,
+      "max_output_tokens": 4000,
+      "reserved_usd": "0.638645",
+      "status": "completed",
+      "input_tokens": 103729,
+      "output_tokens": 3078,
+      "accounted_usd": "0.610985",
+      "response_id": "resp_004184a0ae352f5a016ad0514ad11487d090254f014369cae8"
+    }
+  ]
+}

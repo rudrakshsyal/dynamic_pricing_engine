@@ -40,7 +40,7 @@ class Recipe(BaseModel):
     )
     calendar: bool = True
     log_transform: bool = False
-    train_days: int = Field(default=730, ge=180, le=730)
+    train_days: int = Field(default=730, ge=180, le=3652)
     mean_window: int = Field(default=28, ge=7, le=90)
     alpha: float = Field(default=10, ge=0.01, le=1000)
     trees: int = Field(default=150, ge=20, le=300)

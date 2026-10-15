@@ -1,0 +1,17 @@
+{
+  "id": "resp_0925e540888dda73016ad051013c3487d09d7f6d2bf465d2d9",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"trial_ids\":[\"ab23ba2d6e7c2930\",\"583d5fec354c812b\",\"0d3c0c0d2c727a1c\"]}",
+      "call_id": "call_upSrPoiOreD3dk4yZMdpSBAh",
+      "name": "review_trials",
+      "type": "function_call",
+      "id": "fc_0925e540888dda73016ad051022a2887d08b1a7ff47e27164e",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

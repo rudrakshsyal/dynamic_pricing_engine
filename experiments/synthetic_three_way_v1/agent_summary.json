@@ -1,0 +1,11 @@
+{
+  "methodology": "Inspected all nine components for history length, missingness, recent levels, weekday patterns, and autocorrelation. Recorded an adaptive plan before modeling. I first evaluated all nine current baselines over the four 90-day validation folds. I then used the diagnostics to choose targeted alternatives rather than a fixed grid: ridge lag/calendar models for autocorrelated or weekly series, rolling means for weakly seasonal noisy rates, seasonal naive for quote counts, and registered alternatives for the multiplier and conversion curves. Selection used pooled validation RMSE for daily components, bin MAE/loss for quote multiplier, and log loss for conversion, with fold stability, bias, weekday bias, and horizon MAE used as tie-breakers. Frozen choices: current for aog_rate, umx_rate, cna_rate, program_live_legs, non_program_live_legs, daily_quote_count, and quote_multiplier; ridge recent-lag model for smx_rate; isotonic curve for conversion.",
+  "caveats": [
+    "The exercise used synthetic validation data; results do not prove real-world revenue uplift or production impact.",
+    "Only 20 total trials were available, so alternatives were targeted and limited rather than exhaustive.",
+    "Several current baselines remained best; this may reflect strong incumbent tuning or limited benefit from the tested simple alternatives.",
+    "The smx_rate ridge model improved pooled RMSE but showed some late-fold negative bias, so it should be monitored after deployment.",
+    "The conversion isotonic improvement over current was very small; although selected by log loss, it is not a practically large win without further confirmation.",
+    "No numerical forecasts or raw prediction files were produced or inspected."
+  ]
+}

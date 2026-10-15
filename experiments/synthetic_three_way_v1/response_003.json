@@ -1,0 +1,17 @@
+{
+  "id": "resp_0925e540888dda73016ad050e8ba4087d0935b11170dafd460",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"proposals\":[{\"component\":\"aog_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"smx_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"umx_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"cna_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"program_live_legs\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"non_program_live_legs\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"daily_quote_count\",\"recipe_json\":\"{\\\"family\\\":\\\"current\\\"}\",\"rationale\":\"Required current baseline.\"},{\"component\":\"quote_multiplier\",\"recipe_json\":\"{\\\"family\\\":\\\"curve\\\",\\\"curve_name\\\":\\\"current_lowess\\\"}\",\"rationale\":\"Required current curve baseline.\"},{\"component\":\"conversion\",\"recipe_json\":\"{\\\"family\\\":\\\"curve\\\",\\\"curve_name\\\":\\\"current_exponential\\\"}\",\"rationale\":\"Required current curve baseline.\"}]}",
+      "call_id": "call_6onNRM5nUvDUfsBUVhOWJKhw",
+      "name": "experiment_batch",
+      "type": "function_call",
+      "id": "fc_0925e540888dda73016ad050e9dcc887d0ac7591f4165017b4",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

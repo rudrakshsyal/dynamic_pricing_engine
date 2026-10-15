@@ -394,3 +394,14 @@ The proposed evaluation uses six initial training years, one validation year and
 ```bash
 uv run python -m src.synthetic_data --root . --out /path/to/new/synthetic_fleet
 ```
+
+### Synthetic three-way comparison — completed
+
+The first baseline-seed pilot compared the current engine, direct GPT-5.5 forecasts and GPT-5.5-directed ML research over three 90-day final windows (270 simulated test days), with four 90-day validation folds. Conservative API cost: **$2.14 of a new $4 cap**. Current ML supply RMSE was **3.594**, versus **4.696** for direct GPT-5.5 and **3.634** for the agent. Current ML also had the lowest diagnostic price error at 14/28/90 days. These simulator results do not prove real-world revenue performance.
+
+- [Separate comparison methodology](docs/SYNTHETIC_COMPARISON.md)
+- [Executive results](experiments/synthetic_three_way_v1/EXECUTIVE_SUMMARY.md)
+- [All horizon results and artifacts](experiments/synthetic_three_way_v1/REPORT.md)
+- [Synthetic datasets and quality report](experiments/synthetic_fleet_v1/REPORT.md)
+
+Only baseline_seed42 was benchmarked under this approval; the other seeds and stress scenarios remain untested.

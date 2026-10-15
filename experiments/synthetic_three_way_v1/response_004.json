@@ -1,0 +1,17 @@
+{
+  "id": "resp_0925e540888dda73016ad050ef4ae087d0b7b43a644fa524d9",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"proposals\":[{\"component\":\"daily_quote_count\",\"recipe_json\":\"{\\\"family\\\":\\\"ridge\\\",\\\"lags\\\":[1,7,14,28],\\\"windows\\\":[7,28,56],\\\"calendar\\\":true,\\\"log_transform\\\":true,\\\"train_days\\\":2191,\\\"alpha\\\":10}\",\"rationale\":\"Strong weekly seasonality and count skew; regularized calendar/lags with full history.\"},{\"component\":\"program_live_legs\",\"recipe_json\":\"{\\\"family\\\":\\\"ridge\\\",\\\"lags\\\":[1,7,14,28],\\\"windows\\\":[7,28],\\\"calendar\\\":true,\\\"train_days\\\":2191,\\\"alpha\\\":10}\",\"rationale\":\"Weekly effects dominate; simple stable linear features.\"},{\"component\":\"non_program_live_legs\",\"recipe_json\":\"{\\\"family\\\":\\\"ridge\\\",\\\"lags\\\":[1,7,14,28],\\\"windows\\\":[7,28],\\\"calendar\\\":true,\\\"train_days\\\":2191,\\\"alpha\\\":10}\",\"rationale\":\"Moderate weekly seasonality with noisy counts.\"},{\"component\":\"smx_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"ridge\\\",\\\"lags\\\":[1,2,7,14,28],\\\"windows\\\":[7,28,56],\\\"calendar\\\":true,\\\"train_days\\\":1095,\\\"alpha\\\":10}\",\"rationale\":\"High autocorrelation; recent 3y may handle drift.\"},{\"component\":\"umx_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"ridge\\\",\\\"lags\\\":[1,2,7,14,28],\\\"windows\\\":[7,28,56],\\\"calendar\\\":true,\\\"train_days\\\":1095,\\\"alpha\\\":10}\",\"rationale\":\"Autocorrelation plus weekday effects; recent window for declining recent mean.\"},{\"component\":\"aog_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"rolling_mean\\\",\\\"mean_window\\\":28,\\\"train_days\\\":730}\",\"rationale\":\"Weak seasonality; recent rolling mean may suffice.\"},{\"component\":\"cna_rate\",\"recipe_json\":\"{\\\"family\\\":\\\"rolling_mean\\\",\\\"mean_window\\\":28,\\\"train_days\\\":730}\",\"rationale\":\"Sparse/noisy low rate; smooth recent level.\"},{\"component\":\"quote_multiplier\",\"recipe_json\":\"{\\\"family\\\":\\\"curve\\\",\\\"curve_name\\\":\\\"shrink_half\\\"}\",\"rationale\":\"Check regularized curve vs lowess.\"},{\"component\":\"conversion\",\"recipe_json\":\"{\\\"family\\\":\\\"curve\\\",\\\"curve_name\\\":\\\"isotonic\\\"}\",\"rationale\":\"Flexible monotone calibration alternative.\"}]}",
+      "call_id": "call_4RIDIpsLt1PL72M0eETsFDmi",
+      "name": "experiment_batch",
+      "type": "function_call",
+      "id": "fc_0925e540888dda73016ad050f04f2887d0b792b1f01ecb90b5",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

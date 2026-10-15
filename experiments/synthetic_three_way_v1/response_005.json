@@ -1,0 +1,17 @@
+{
+  "id": "resp_0925e540888dda73016ad050f7299c87d09610d74dd931d57a",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"proposals\":[{\"component\":\"daily_quote_count\",\"recipe_json\":\"{\\\"family\\\":\\\"seasonal_naive\\\"}\",\"rationale\":\"Strong lag-7 autocorrelation; simple benchmark may beat current/overfit ridge.\"},{\"component\":\"quote_multiplier\",\"recipe_json\":\"{\\\"family\\\":\\\"curve\\\",\\\"curve_name\\\":\\\"constant_one\\\"}\",\"rationale\":\"Test simplest multiplier; useful if lowess overfits bins.\"}]}",
+      "call_id": "call_jTWK5qOIB1P6s6D4wDbSWDMc",
+      "name": "experiment_batch",
+      "type": "function_call",
+      "id": "fc_0925e540888dda73016ad050f941a087d082c26192540ae37a",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "dataset": "baseline_seed42",
+  "source_hashes": {
+    "legs_fleet_daily.parquet": "e064293868702131ea456641a8ed683e7940cb4c0551cd8387499f543662b751",
+    "quotes_deduped_enriched.parquet": "125edffd7c01a76475d12d6dfcfff18530b18b9dac6f1cd858245aed8b17a5bd",
+    "avl_fleet_daily.parquet": "9305e27d16ec1b02ae0810d8e425143b2ab5bd9f231758371426682544e7309f",
+    "quotes_fleet_daily.parquet": "62902f7e603231ba64f67cc6c6e3eb356a2bd7cb4c8941fa10422b2fb0eca117"
+  },
+  "validation_origins": [
+    "2031-12-31",
+    "2032-03-31",
+    "2032-06-30",
+    "2032-09-30"
+  ],
+  "test_origins": [
+    "2032-12-31",
+    "2033-12-31",
+    "2034-12-31"
+  ],
+  "horizons": [
+    14,
+    28,
+    90
+  ],
+  "budget_usd": 4,
+  "primary_horizon": 90,
+  "seed_scope": "baseline_seed42 only",
+  "direct_input": "All available daily targets in chronological row order; rates rounded to 4 decimals, counts integer; full-history observed curve bins.",
+  "warning": "Synthetic evaluation only. Test horizon subsets overlap; do not sum them as independent evidence.",
+  "code_hashes": {
+    "synthetic_benchmark.py": "cea8f97ca81459a859adc677629bb7506cf30551b0cedf41b1da4b89fc2c239f",
+    "research_experiments.py": "feeeb452feb61ac399149c5bbee0826a613b37cfa2f52ed8cbacd1fac82edcd4",
+    "research_budget.py": "7e0f2c353a3c666017a0b5a8f3a195aa96aa38bfeff4c7606d69180aa2f9310e",
+    "model_benchmark.py": "dca3b189ec49f1315ee508e95475927215825d58766c9808eee6a61138e6d429"
+  },
+  "agent_max_trials": 20,
+  "agent_max_turns": 12,
+  "direct_model_reasoning": "none",
+  "agent_model_reasoning": "low"
+}
