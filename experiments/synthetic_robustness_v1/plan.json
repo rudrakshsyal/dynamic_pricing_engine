@@ -1,0 +1,316 @@
+{
+  "paths": [
+    "baseline_seed42",
+    "baseline_seed123",
+    "baseline_seed2026",
+    "demand_shift_seed42",
+    "maintenance_stress_seed42"
+  ],
+  "origins": [
+    "2032-12-31",
+    "2033-03-31",
+    "2033-06-30",
+    "2033-09-30",
+    "2033-12-31",
+    "2034-03-31",
+    "2034-06-30",
+    "2034-09-30",
+    "2034-12-31",
+    "2035-03-31",
+    "2035-06-30",
+    "2035-09-30"
+  ],
+  "horizons": [
+    14,
+    28,
+    90
+  ],
+  "primary_horizon": 90,
+  "api_calls": 0,
+  "api_cost_usd": 0,
+  "protocol": "Expanding training through each origin; fixed recipes, no reselection. Quarterly tests include June/July maintenance shocks. Short horizons are prefixes.",
+  "recipes": {
+    "aog_rate": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "smx_rate": {
+      "family": "ridge",
+      "lags": [
+        1,
+        2,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28,
+        56
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "umx_rate": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "cna_rate": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "program_live_legs": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "non_program_live_legs": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "daily_quote_count": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "quote_multiplier": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "current_lowess"
+    },
+    "conversion": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "isotonic"
+    }
+  },
+  "frozen_hashes": {
+    "trials.json": "bd7a0db76be28f3c67e6d6416a52c0215366ed7390c55555c75b6617d64b1b83",
+    "frozen_choices.json": "8e55030f5a0979018f71b95e361bca2e75fbbcbed9500d0862cbdf92b1a788eb"
+  },
+  "source_hashes": {
+    "baseline_seed42": {
+      "legs_fleet_daily.parquet": "e064293868702131ea456641a8ed683e7940cb4c0551cd8387499f543662b751",
+      "quotes_deduped_enriched.parquet": "125edffd7c01a76475d12d6dfcfff18530b18b9dac6f1cd858245aed8b17a5bd",
+      "avl_fleet_daily.parquet": "9305e27d16ec1b02ae0810d8e425143b2ab5bd9f231758371426682544e7309f",
+      "quotes_fleet_daily.parquet": "62902f7e603231ba64f67cc6c6e3eb356a2bd7cb4c8941fa10422b2fb0eca117"
+    },
+    "baseline_seed123": {
+      "legs_fleet_daily.parquet": "7b3b2c923fe8b63f16a3e5bdcc8bdd886c3d1c6d74f712ba6bf91dbc8a0d296a",
+      "quotes_deduped_enriched.parquet": "d3821f7dc4701342246e1a5e6204753fb85645e9151439968ebf865e6706c6ad",
+      "avl_fleet_daily.parquet": "59843eb224e5f211229491429df0bdbb8f10fd140e789699b6f7fa28cf217f37",
+      "quotes_fleet_daily.parquet": "51a89acd433fa937e4ac390b67993bacba209108ab9ab0d42b3fe09224eb2330"
+    },
+    "baseline_seed2026": {
+      "legs_fleet_daily.parquet": "e13cad0dca772c6dd677ed772d1ead98edf2b238beedb64824969c54c20f5088",
+      "quotes_deduped_enriched.parquet": "85d131a51af64af4fea6a89738d3da6a66988331340472c7dbab652b963378c0",
+      "avl_fleet_daily.parquet": "bd6bd9209f48783f5943d835e11782fd12973a3121dbc45eba3cb52afe72ceaf",
+      "quotes_fleet_daily.parquet": "c869d21e1f0319487bef7b3a88e7df819c378e1df094a00f8619c0367e439038"
+    },
+    "demand_shift_seed42": {
+      "legs_fleet_daily.parquet": "d2bdb8b6525f742318058c71a01df7f5a3a937e80bee9bdb0a1420682fd4ba66",
+      "quotes_deduped_enriched.parquet": "c3c84ef4e0a9e5d3b203e5d5f8c4b65f4a1d9ff790528e35140902b5c46a8287",
+      "avl_fleet_daily.parquet": "fa1773c1464f28accffbacf07c1258e1415ffb7496e0ab4254828f280662a39e",
+      "quotes_fleet_daily.parquet": "75267e9fc2f0573d4679003478110be2fa3e91b75b6212bf37753252cf882f3b"
+    },
+    "maintenance_stress_seed42": {
+      "legs_fleet_daily.parquet": "5b75e5a1c5c002ddbcdbb76f3338a9c12b02f96952a7a8814376ea74370ddc42",
+      "quotes_deduped_enriched.parquet": "2140fdd70ad768bf2147a0fd5eaea99a536794afbe2e54250611e5270132675c",
+      "avl_fleet_daily.parquet": "a5433e7b062085ee3b46fb6bfd069bd03bb33638ba4579455c42c7eea4d046c9",
+      "quotes_fleet_daily.parquet": "58617f6b070e4a99860607feda65b674428177048ff2b128acee9b0f142489ad"
+    }
+  },
+  "code_hash": "e45aec68a997c067bf8ad38095a6dc4a1ddc3d8ad40bc837d12363830de47458"
+}

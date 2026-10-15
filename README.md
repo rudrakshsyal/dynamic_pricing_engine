@@ -405,3 +405,9 @@ The first baseline-seed pilot compared the current engine, direct GPT-5.5 foreca
 - [Synthetic datasets and quality report](experiments/synthetic_fleet_v1/REPORT.md)
 
 Only baseline_seed42 was benchmarked under this approval; the other seeds and stress scenarios remain untested.
+
+### Offline synthetic robustness
+
+The frozen agent pipeline was tested against current ML across **five synthetic paths and 60 quarterly folds**, with **zero API calls and $0 API cost**. At the 90-day horizon, supply RMSE improves 2.9% on seed42 and 5.2% under maintenance stress, but worsens 2.5% on seed123 and is nearly tied on seed2026. These mixed simulation results do not establish revenue uplift or justify replacing current ML.
+
+See the [executive summary](experiments/synthetic_robustness_v1/EXECUTIVE_SUMMARY.md), [full results](experiments/synthetic_robustness_v1/REPORT.md), and [methodology and reproduction instructions](docs/SYNTHETIC_ROBUSTNESS.md). Predictions, diagnostics, input hashes and frozen recipes are saved separately under `experiments/synthetic_robustness_v1/`.
