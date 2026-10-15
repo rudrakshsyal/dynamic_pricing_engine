@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1ceb79487d0bbe7e59b23062d34",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"program_live_legs\",\"recipe\":{\"family\":\"current\",\"lags\":[1],\"windows\":[7],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"Existing recipe baseline for comparison.\"}",
+      "call_id": "call_dmptjja9azYktx7JwpoOf1Nq",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1cffdc887d0a539f06601d2eb4e",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

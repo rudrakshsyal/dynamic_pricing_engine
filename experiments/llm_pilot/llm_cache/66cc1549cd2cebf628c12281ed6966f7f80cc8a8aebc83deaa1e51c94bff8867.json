@@ -1,0 +1,249 @@
+{
+  "model": "gpt-5.5",
+  "request_hash": "66cc1549cd2cebf628c12281ed6966f7f80cc8a8aebc83deaa1e51c94bff8867",
+  "response_id": "resp_0205cdaedc139815016ace6dbac34087d0810eb4e9ea8b7fc0",
+  "latency_seconds": 68.01094424992334,
+  "usage": {
+    "input_tokens": 67362,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 6107,
+    "output_tokens_details": {
+      "reasoning_tokens": 4605
+    },
+    "total_tokens": 73469
+  },
+  "bundle": {
+    "daily": [
+      {
+        "date": "2025-12-01",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.046511627906976744,
+        "umx_rate": 0.046511627906976744,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 25.0,
+        "non_program_live_legs": 9.0,
+        "daily_quote_count": 78.0
+      },
+      {
+        "date": "2025-12-02",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.06976744186046512,
+        "umx_rate": 0.09302325581395349,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 22.0,
+        "non_program_live_legs": 9.0,
+        "daily_quote_count": 94.0
+      },
+      {
+        "date": "2025-12-03",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.13953488372093023,
+        "cna_rate": 0.0,
+        "program_live_legs": 28.0,
+        "non_program_live_legs": 7.0,
+        "daily_quote_count": 82.0
+      },
+      {
+        "date": "2025-12-04",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.13953488372093023,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 27.0,
+        "non_program_live_legs": 6.0,
+        "daily_quote_count": 70.0
+      },
+      {
+        "date": "2025-12-05",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.11627906976744186,
+        "cna_rate": 0.0,
+        "program_live_legs": 28.0,
+        "non_program_live_legs": 6.0,
+        "daily_quote_count": 66.0
+      },
+      {
+        "date": "2025-12-06",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.11627906976744186,
+        "umx_rate": 0.09302325581395349,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 22.0,
+        "non_program_live_legs": 9.0,
+        "daily_quote_count": 28.0
+      },
+      {
+        "date": "2025-12-07",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.11627906976744186,
+        "umx_rate": 0.09302325581395349,
+        "cna_rate": 0.0,
+        "program_live_legs": 34.0,
+        "non_program_live_legs": 5.0,
+        "daily_quote_count": 31.0
+      },
+      {
+        "date": "2025-12-08",
+        "aog_rate": 0.06976744186046512,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.023255813953488372,
+        "cna_rate": 0.0,
+        "program_live_legs": 25.0,
+        "non_program_live_legs": 9.0,
+        "daily_quote_count": 84.0
+      },
+      {
+        "date": "2025-12-09",
+        "aog_rate": 0.09302325581395349,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.09302325581395349,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 23.0,
+        "non_program_live_legs": 9.0,
+        "daily_quote_count": 96.0
+      },
+      {
+        "date": "2025-12-10",
+        "aog_rate": 0.046511627906976744,
+        "smx_rate": 0.13953488372093023,
+        "umx_rate": 0.09302325581395349,
+        "cna_rate": 0.0,
+        "program_live_legs": 28.0,
+        "non_program_live_legs": 7.0,
+        "daily_quote_count": 78.0
+      },
+      {
+        "date": "2025-12-11",
+        "aog_rate": 0.09302325581395349,
+        "smx_rate": 0.13953488372093023,
+        "umx_rate": 0.11627906976744186,
+        "cna_rate": 0.0,
+        "program_live_legs": 27.0,
+        "non_program_live_legs": 7.0,
+        "daily_quote_count": 70.0
+      },
+      {
+        "date": "2025-12-12",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.13953488372093023,
+        "umx_rate": 0.11627906976744186,
+        "cna_rate": 0.0,
+        "program_live_legs": 27.0,
+        "non_program_live_legs": 7.0,
+        "daily_quote_count": 66.0
+      },
+      {
+        "date": "2025-12-13",
+        "aog_rate": 0.046511627906976744,
+        "smx_rate": 0.11627906976744186,
+        "umx_rate": 0.046511627906976744,
+        "cna_rate": 0.023255813953488372,
+        "program_live_legs": 21.0,
+        "non_program_live_legs": 8.0,
+        "daily_quote_count": 28.0
+      },
+      {
+        "date": "2025-12-14",
+        "aog_rate": 0.023255813953488372,
+        "smx_rate": 0.09302325581395349,
+        "umx_rate": 0.046511627906976744,
+        "cna_rate": 0.0,
+        "program_live_legs": 32.0,
+        "non_program_live_legs": 5.0,
+        "daily_quote_count": 27.0
+      }
+    ],
+    "curve": [
+      {
+        "yield_usd": 7000.0,
+        "quote_multiplier": 0.7957,
+        "conversion_probability": 0.066727
+      },
+      {
+        "yield_usd": 7500.0,
+        "quote_multiplier": 0.9238,
+        "conversion_probability": 0.062541
+      },
+      {
+        "yield_usd": 8000.0,
+        "quote_multiplier": 1.0268,
+        "conversion_probability": 0.058354
+      },
+      {
+        "yield_usd": 8500.0,
+        "quote_multiplier": 0.9973,
+        "conversion_probability": 0.054168
+      },
+      {
+        "yield_usd": 9000.0,
+        "quote_multiplier": 0.9697,
+        "conversion_probability": 0.04846
+      },
+      {
+        "yield_usd": 9500.0,
+        "quote_multiplier": 1.0186,
+        "conversion_probability": 0.042753
+      },
+      {
+        "yield_usd": 10000.0,
+        "quote_multiplier": 1.0394,
+        "conversion_probability": 0.039832
+      },
+      {
+        "yield_usd": 10500.0,
+        "quote_multiplier": 1.0303,
+        "conversion_probability": 0.036911
+      },
+      {
+        "yield_usd": 11000.0,
+        "quote_multiplier": 0.9468,
+        "conversion_probability": 0.031959
+      },
+      {
+        "yield_usd": 11500.0,
+        "quote_multiplier": 0.8554,
+        "conversion_probability": 0.027007
+      },
+      {
+        "yield_usd": 12000.0,
+        "quote_multiplier": 0.7843,
+        "conversion_probability": 0.024899
+      },
+      {
+        "yield_usd": 12500.0,
+        "quote_multiplier": 0.7353,
+        "conversion_probability": 0.02279
+      },
+      {
+        "yield_usd": 13000.0,
+        "quote_multiplier": 0.6995,
+        "conversion_probability": 0.01928
+      },
+      {
+        "yield_usd": 13500.0,
+        "quote_multiplier": 0.6354,
+        "conversion_probability": 0.01577
+      },
+      {
+        "yield_usd": 14000.0,
+        "quote_multiplier": 0.5741,
+        "conversion_probability": 0.01692
+      },
+      {
+        "yield_usd": 14500.0,
+        "quote_multiplier": 0.4904,
+        "conversion_probability": 0.018069
+      },
+      {
+        "yield_usd": 15000.0,
+        "quote_multiplier": 0.3736,
+        "conversion_probability": 0.016172
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd20415b887d09eaf5e1a7b7ff206",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"smx_rate\",\"recipe\":{\"family\":\"ridge\",\"lags\":[1,2,7,14,28,56],\"windows\":[7,14,28,56],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":20,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"SMX rate has high lag-1/weekly autocorrelation; regularized lag/calendar model may improve over current.\"}",
+      "call_id": "call_95eg6ik8ZTzXIhhE0EVkDLWB",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd2053c6087d08019518ceaa8da0c",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

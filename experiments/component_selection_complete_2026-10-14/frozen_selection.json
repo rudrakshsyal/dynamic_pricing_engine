@@ -1,0 +1,54 @@
+{
+  "manifest": {
+    "version": "selection-v1",
+    "validation_origins": [
+      "2025-06-30",
+      "2025-08-31",
+      "2025-09-30"
+    ],
+    "horizon": 28,
+    "final_origin": "2025-10-31",
+    "seed": 42,
+    "daily_candidates": [
+      "current",
+      "seasonal_naive",
+      "monthly_mean",
+      "rolling_mean",
+      "ridge",
+      "extra_trees",
+      "xgb_shallow",
+      "xgb_medium"
+    ],
+    "curve_candidates": {
+      "quote_multiplier": [
+        "current_lowess",
+        "constant_one",
+        "shrink_half"
+      ],
+      "conversion": [
+        "current_exponential",
+        "constant",
+        "isotonic"
+      ]
+    },
+    "selection_metric": "pooled RMSE for daily targets; pooled log loss for conversion; bin-weighted MAE for multiplier",
+    "source_hashes": {
+      "legs_fleet_daily.parquet": "0aa5d8d654d17d69f02b6d3f6f7e0151a255708ddecbddaa3453dbe1569ac5a8",
+      "quotes_deduped_enriched.parquet": "55a090b83cf74e2f9a71527853c0cc0ed19c9c630ea44580b029f50dff69149c",
+      "avl_fleet_daily.parquet": "046ca16404191b6fc7f9a51a23ab5a7ef4e542f25c72f76d45cea6c7d3acec70",
+      "quotes_fleet_daily.parquet": "a511c53d4a78449156870d035599e28291e61781d1a7da6acd2d9680671842ef"
+    },
+    "code_sha256": "f1a2638405feb034d6474cd58a32aacc2874a3c744315fc966589381631c1c82"
+  },
+  "selected": {
+    "aog_rate": "rolling_mean",
+    "smx_rate": "current",
+    "umx_rate": "extra_trees",
+    "cna_rate": "rolling_mean",
+    "program_live_legs": "xgb_medium",
+    "non_program_live_legs": "xgb_medium",
+    "daily_quote_count": "xgb_medium",
+    "quote_multiplier": "shrink_half",
+    "conversion": "isotonic"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1e1c7fc87d09eeb75e35b2d47a1",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"quote_multiplier\",\"recipe\":{\"family\":\"curve\",\"lags\":[1],\"windows\":[7],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"constant_one\"},\"rationale\":\"Cheap bounded alternative to test whether maturity multiplier curve adds value over no adjustment.\"}",
+      "call_id": "call_kt1dvweCxvsG8wA0HFoL8EsJ",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1e30d4087d09418dc591018a179",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

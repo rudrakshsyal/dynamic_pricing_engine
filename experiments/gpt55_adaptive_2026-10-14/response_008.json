@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1b9030c87d0b366dab5e468d59f",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"non_program_live_legs\"}",
+      "call_id": "call_lnyFHnSvC4txFFFp1FzfxoYm",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1ba3b5487d09bfcd73315d4fb55",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

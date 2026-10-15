@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1eb4cd487d0ab3e763502a772a9",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"conversion\",\"recipe\":{\"family\":\"curve\",\"lags\":[1],\"windows\":[7],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"isotonic\"},\"rationale\":\"Flexible monotone alternative to current exponential conversion curve.\"}",
+      "call_id": "call_4xKt6Ba4J5WbTuikfUdglG5S",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1ec4f1c87d081c5c0bdd16d23c7",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

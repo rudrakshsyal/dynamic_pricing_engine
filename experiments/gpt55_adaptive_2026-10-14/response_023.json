@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1e55eec87d09081b8edeefa3f7a",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"quote_multiplier\",\"recipe\":{\"family\":\"curve\",\"lags\":[1],\"windows\":[7],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"shrink_half\"},\"rationale\":\"Bounded compromise between current lowess curve and constant one.\"}",
+      "call_id": "call_2IeROOizmwzn2qTJIyaJJ318",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1e6814487d0b2349daae74b0f27",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

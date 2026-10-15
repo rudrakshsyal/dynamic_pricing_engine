@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1ad03e087d0b56bc40ec3f0a433",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"aog_rate\"}",
+      "call_id": "call_zSbfK9DD5o1VsyYZI5y5EKvk",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1add8bc87d0857acf528ad6cb74",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

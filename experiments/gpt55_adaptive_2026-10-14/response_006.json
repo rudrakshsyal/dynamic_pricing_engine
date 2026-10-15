@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1b4705087d0a4b57f2ffcccbb33",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"cna_rate\"}",
+      "call_id": "call_mUUWBBRkxvy2pz87dCt5UBUS",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1b5689887d09189921a85124846",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

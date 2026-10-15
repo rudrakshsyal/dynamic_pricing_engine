@@ -1,0 +1,18 @@
+{
+  "model": "gpt-5.5",
+  "request_hash": "66cc1549cd2cebf628c12281ed6966f7f80cc8a8aebc83deaa1e51c94bff8867",
+  "response_id": "resp_0205cdaedc139815016ace6dbac34087d0810eb4e9ea8b7fc0",
+  "latency_seconds": 68.01094424992334,
+  "usage": {
+    "input_tokens": 67362,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 6107,
+    "output_tokens_details": {
+      "reasoning_tokens": 4605
+    },
+    "total_tokens": 73469
+  }
+}

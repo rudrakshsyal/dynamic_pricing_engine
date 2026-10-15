@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1b29a6487d080c7e8e28356473e",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"umx_rate\"}",
+      "call_id": "call_zFzrPfNwLx5MOdoxpC6rP3ve",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1b39a7087d0adf5bf954d3b4fb7",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

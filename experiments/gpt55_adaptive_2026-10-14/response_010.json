@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1bd2b4487d0a73bc36c6130a833",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"quote_multiplier\"}",
+      "call_id": "call_wTL0EY6l3IHhtjKKwrRLF3mj",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1be20e887d082f1e46e1f39d370",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

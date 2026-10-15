@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd232644487d0817f337449301c29",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"choices\":[{\"component\":\"aog_rate\",\"trial_id\":\"56ac35d5ec53c862\",\"reason\":\"Rolling 28-day mean beat the current baseline on validation score (0.02790 vs 0.02893 RMSE) and review showed small fold biases, appropriate for noisy weakly autocorrelated AOG.\"},{\"component\":\"smx_rate\",\"trial_id\":\"53d3a3bb659369b3\",\"reason\":\"Current recipe remained best; ridge alternative was materially worse. Fold RMSEs were stable around 0.027-0.031 with only modest bias swings.\"},{\"component\":\"umx_rate\",\"trial_id\":\"29869b08f3298c07\",\"reason\":\"Conservative xgboost had the lowest validation score among tried UMX models (0.04920) and substantially reduced the current recipe's positive bias, with similar RMSE across folds.\"},{\"component\":\"cna_rate\",\"trial_id\":\"7d868af822a19c76\",\"reason\":\"Rolling 28-day mean improved over current (0.01531 vs 0.01655) and reduced overforecast bias for this sparse low-rate series; review showed stable fold MAE.\"},{\"component\":\"program_live_legs\",\"trial_id\":\"70d179cf8fb622df\",\"reason\":\"Current recipe outperformed ridge and seasonal-naive alternatives by validation score; despite some fold/weekday bias, the tried simpler models had higher errors.\"},{\"component\":\"non_program_live_legs\",\"trial_id\":\"3c8923f8997fa213\",\"reason\":\"Conservative xgboost clearly improved over current and ridge (score 2.218 vs 2.625/2.552) with low fold-to-fold RMSE variation and reduced underbias.\"},{\"component\":\"daily_quote_count\",\"trial_id\":\"76fcc8891c4b76f9\",\"reason\":\"Current recipe had the best validation score; xgboost and ridge log-lag alternatives underforecasted later folds and were worse. Selected current despite residual bias because validation error was lower.\"},{\"component\":\"quote_multiplier\",\"trial_id\":\"be4b87776c33dee9\",\"reason\":\"Shrink-half curve was best of all bounded candidates (score 0.12265 vs 0.15181 current_lowess and 0.14884 constant_one) and was stable across folds.\"},{\"component\":\"conversion\",\"trial_id\":\"e034a30989a32294\",\"reason\":\"Isotonic curve slightly improved log loss and Brier over current exponential across all folds; constant curve was worse.\"}]}",
+      "call_id": "call_ynPz7lSFSYHwxOdSNPf5dr4M",
+      "name": "freeze_choices",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd233d00087d0acfcb8c943e86899",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

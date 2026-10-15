@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd207424887d09f244a9b6b62a0eb",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"umx_rate\",\"recipe\":{\"family\":\"ridge\",\"lags\":[1,2,7,14,28,56],\"windows\":[7,14,28,56],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":30,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"UMX rate has meaningful lag and weekday effects; ridge may reduce current positive bias.\"}",
+      "call_id": "call_svpW4DYcF1PNKgsKbBu9HOxi",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd208a71887d0b6ce20613cee31b3",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

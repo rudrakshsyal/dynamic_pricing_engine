@@ -354,3 +354,33 @@ Tests use synthetic fixtures and mocked model calls, so running them does not in
 ## Author and license
 
 Created by [Rudraksh Syal](https://github.com/rudrakshsyal). No license file is included in the repository; data access and reuse terms also need to be specified.
+
+## Tool-based ML model selection
+
+A separate experiment now compares eight conventional forecast candidates per daily component and three alternatives per demand curve. Validation choices are frozen before final evaluation. An optional OpenAI Agents SDK coordinator calls bounded experiment tools; model fitting and score-based selection remain in Python. **The completed run was offline; no paid coordinator calls were made.**
+
+On November 1–28, 2025, validation-selected models reduced enquiry RMSE by 19.2%, program-leg RMSE by 7.3% and remaining-supply proxy RMSE by 14.6%. UMX and non-program forecasts worsened. Common-date diagnostic price error fell, but DNQ disagreement increased from 60.7% to 64.3%; this does not establish better operational pricing or revenue. Production models remain unchanged.
+
+```bash
+uv run python -m src.model_selection --out experiments/component_selection_new
+```
+
+See [full methodology, candidate settings, results and optional coordinator instructions](docs/MODEL_SELECTION_METHODOLOGY.md). Modules: `src/model_selection.py`, `src/model_selection_agent.py`; offline tests: `tests/test_model_selection.py`.
+
+## Adaptive GPT-5.5 research agent — completed experiment
+
+The new `src.research_agent` lets GPT-5.5 plan experiments, inspect training summaries, choose and tune forecast models, review validation errors, test ensembles and select final recipes with reasons. Unlike the fixed coordinator above, its experiment sequence and final choices are not predetermined. Local tools enforce bounds and keep final-test observations outside the agent workbench.
+
+Completed a paid GPT-5.5 run on October 14, 2026: 24 trials and 47 model requests, with $2.8575 conservatively accounted against a $4 cap. All 21 offline tests passed before execution. The separate evaluator compares the selected pipeline against current Prophet/seasonal recipes after choices are frozen. Historical November results remain retrospective, not an untouched holdout. See [research-agent methodology, controls and approval-ready run instructions](docs/AGENTIC_RESEARCH.md).
+
+### Adaptive research results
+
+On the retrospective November 1–28 test, AOG/CNA RMSE improved 12.2%/28.4%, while UMX/non-program RMSE worsened 30.7%/13.3%. SMX, program legs and enquiries retained current recipes. Remaining-supply error increased 2.4%, and DNQ disagreement increased from 60.7% to 67.9%. Keep production models unchanged; no revenue uplift was demonstrated.
+
+- [Executive results and agent selection reasons](experiments/gpt55_adaptive_2026-10-14/RUN_SUMMARY.md)
+- [Full adaptive experiment artifacts](experiments/gpt55_adaptive_2026-10-14/)
+- [Fixed model-search comparison](experiments/component_selection_complete_2026-10-14/report.md)
+- [Earlier direct-LLM pilot](experiments/llm_pilot/report.md)
+- [Chronological activity and budget log](docs/AGENTIC_RESEARCH_RUN_LOG.md)
+
+The committed experiment folders contain aggregate daily predictions, scores, model configurations, visible agent actions and usage records. Raw operational datasets and API credentials remain excluded. The $4 application budget guard reserves each request before dispatch; it is not an account-wide billing limit.

@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1a5088887d0a3da8cb5a6d86dfa",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{}",
+      "call_id": "call_2PZqAL6JDbmnRQDOHWqLKT3Y",
+      "name": "catalog",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1a6463887d084326c32978238c2",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

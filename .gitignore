@@ -217,10 +217,12 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-echo ".venv/
-data/raw/
+
+# Local operational datasets and credentials
+data/
 *.pkl
 *.parquet
-__pycache__/
 .DS_Store
-.env" >> .gitignore
+.env
+.env.*
+!.env.example

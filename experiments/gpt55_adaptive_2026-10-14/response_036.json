@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd2139e3487d08c326344443934b7",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"umx_rate\",\"recipe\":{\"family\":\"xgboost\",\"lags\":[1,2,7,14,28,56],\"windows\":[7,14,28],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":180,\"depth\":2,\"min_leaf\":10,\"learning_rate\":0.03,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"Conservative boosted lag/calendar model to test whether nonlinear patterns improve UMX rate beyond ridge while controlling overfit.\"}",
+      "call_id": "call_vvKmAe7enffqM79sIPSP8luT",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd21600e887d0a2b8b6cf8145b819",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

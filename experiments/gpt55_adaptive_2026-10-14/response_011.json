@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1bf66f087d0ad47142a1c508d7a",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"conversion\"}",
+      "call_id": "call_eBzXR4PDDBolGmcK1haj3IIj",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1c07bd087d0b81dc919cde98cfd",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

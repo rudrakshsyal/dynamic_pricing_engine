@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1afbdb487d0b80f206260510f83",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"smx_rate\"}",
+      "call_id": "call_13AYly0rulCVwuOdUtLND2Hv",
+      "name": "inspect_data",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1b1ae0c87d0bde7416ee44cd74f",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

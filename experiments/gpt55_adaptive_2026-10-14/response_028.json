@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1f612d487d0b0d5e23d9c173074",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"program_live_legs\",\"recipe\":{\"family\":\"ridge\",\"lags\":[1,7,14,28,56],\"windows\":[7,14,28,56],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":30,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"Program legs have strong weekday/28-day autocorrelation; ridge should model seasonality with less fold bias than current.\"}",
+      "call_id": "call_562w1vhFE3ULJ9PYuOdlFBYQ",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1f72c5487d087f10722dd3e6838",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

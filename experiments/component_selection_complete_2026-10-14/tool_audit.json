@@ -1,0 +1,54 @@
+[
+  {
+    "tool": "evaluate_component",
+    "component": "aog_rate",
+    "winner": "rolling_mean"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "smx_rate",
+    "winner": "current"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "umx_rate",
+    "winner": "extra_trees"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "cna_rate",
+    "winner": "rolling_mean"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "program_live_legs",
+    "winner": "xgb_medium"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "non_program_live_legs",
+    "winner": "xgb_medium"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "daily_quote_count",
+    "winner": "xgb_medium"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "quote_multiplier",
+    "winner": "shrink_half"
+  },
+  {
+    "tool": "evaluate_component",
+    "component": "conversion",
+    "winner": "isotonic"
+  },
+  {
+    "tool": "freeze_selection"
+  },
+  {
+    "tool": "final_test",
+    "days": 28
+  }
+]

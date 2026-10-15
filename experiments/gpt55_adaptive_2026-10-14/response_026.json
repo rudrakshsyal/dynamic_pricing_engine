@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd1ee061c87d0a3bd5476c4f7f225",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"daily_quote_count\",\"recipe\":{\"family\":\"xgboost\",\"lags\":[1,2,7,14,28,56],\"windows\":[7,14,28],\"calendar\":true,\"log_transform\":true,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":220,\"depth\":3,\"min_leaf\":7,\"learning_rate\":0.035,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"Strong weekly autocorrelation and high volume suggest boosted lag/calendar model with log scale may capture nonlinear weekday level shifts while limiting depth.\"}",
+      "call_id": "call_Pk3A1Hq1xwJx0nZVlhWjiwAD",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd1efa52887d0b7875abc0a0da575",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}

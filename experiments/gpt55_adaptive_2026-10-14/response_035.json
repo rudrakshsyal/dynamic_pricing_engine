@@ -1,0 +1,17 @@
+{
+  "id": "resp_0087e0d2e09726bb016acfd20fc4ec87d0a2107307ce9c8a96",
+  "status": "completed",
+  "visible_output": [
+    {
+      "arguments": "{\"component\":\"cna_rate\",\"recipe\":{\"family\":\"rolling_mean\",\"lags\":[1],\"windows\":[7],\"calendar\":true,\"log_transform\":false,\"train_days\":730,\"mean_window\":28,\"alpha\":10,\"trees\":150,\"depth\":4,\"min_leaf\":7,\"learning_rate\":0.04,\"changepoint_scale\":0.05,\"seasonality_mode\":\"additive\",\"weekly\":true,\"yearly\":true,\"curve_name\":\"\"},\"rationale\":\"CNA is sparse and recent mean is low; rolling mean may reduce current positive bias and overfitting.\"}",
+      "call_id": "call_QWbymAbdzNQAjMzVQfHqJLFD",
+      "name": "run_trial",
+      "type": "function_call",
+      "id": "fc_0087e0d2e09726bb016acfd2111c5487d0913436bd22f69ca6",
+      "async_": null,
+      "caller": null,
+      "namespace": null,
+      "status": "completed"
+    }
+  ]
+}
