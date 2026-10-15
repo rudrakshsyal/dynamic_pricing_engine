@@ -1,0 +1,22 @@
+[
+  {
+    "path": "experiments/synthetic_three_way_v1/aggregate_results.json",
+    "sha256": "9a926f6ba3d5f63673220dcdc7061a99a60cc96d0e7c93bc884157ab663ce864"
+  },
+  {
+    "path": "experiments/synthetic_robustness_v1/aggregate_results.json",
+    "sha256": "8538b7bbaaa9c78d26f8f8eb56e88393cc7ec2f2ce4869bd6c4f9aaddf2ea3c3"
+  },
+  {
+    "path": "experiments/gpt55_adaptive_2026-10-14/final_results.json",
+    "sha256": "aa102473a1f4eab47de64fcd8bef7d34a17beadb2cc923b73427cc551f2a2b29"
+  },
+  {
+    "path": "experiments/component_selection_complete_2026-10-14/final_results.json",
+    "sha256": "c2b9e9740e33f1475111430ff5aca748b0a897cf54a91faf05fa609c11b8fdbf"
+  },
+  {
+    "path": "experiments/llm_pilot/results.json",
+    "sha256": "d237b60eca953da7fd497dd8cf1d72fa3273a37fd87786c8d8d8b560699ce5ec"
+  }
+]

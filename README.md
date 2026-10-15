@@ -411,3 +411,7 @@ Only baseline_seed42 was benchmarked under this approval; the other seeds and st
 The frozen agent pipeline was tested against current ML across **five synthetic paths and 60 quarterly folds**, with **zero API calls and $0 API cost**. At the 90-day horizon, supply RMSE improves 2.9% on seed42 and 5.2% under maintenance stress, but worsens 2.5% on seed123 and is nearly tied on seed2026. These mixed simulation results do not establish revenue uplift or justify replacing current ML.
 
 See the [executive summary](experiments/synthetic_robustness_v1/EXECUTIVE_SUMMARY.md), [full results](experiments/synthetic_robustness_v1/REPORT.md), and [methodology and reproduction instructions](docs/SYNTHETIC_ROBUSTNESS.md). Predictions, diagnostics, input hashes and frozen recipes are saved separately under `experiments/synthetic_robustness_v1/`.
+
+### Visual research dashboard
+
+Open [the standalone HTML report](reports/pricing-research/index.html) locally to explore the traditional ML, direct LLM, and agent-selected ML results. Includes horizon switching, scenario comparisons, methodology, and print-to-PDF styling. GitHub displays HTML source; download it to view in a browser. See [report instructions](reports/pricing-research/README.md) and the [LinkedIn draft](reports/pricing-research/LINKEDIN_DRAFT.md).
