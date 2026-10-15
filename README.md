@@ -415,3 +415,5 @@ See the [executive summary](experiments/synthetic_robustness_v1/EXECUTIVE_SUMMAR
 ### Visual research dashboard
 
 Open [the standalone HTML report](reports/pricing-research/index.html) locally to explore the traditional ML, direct LLM, and agent-selected ML results. Includes horizon switching, scenario comparisons, methodology, and print-to-PDF styling. GitHub displays HTML source; download it to view in a browser. See [report instructions](reports/pricing-research/README.md) and the [LinkedIn draft](reports/pricing-research/LINKEDIN_DRAFT.md).
+
+**[Open the public research dashboard](https://rudrakshsyal.github.io/dynamic_pricing_engine/)** — accessible without a GitHub account or local setup.
