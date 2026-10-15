@@ -384,3 +384,13 @@ On the retrospective November 1–28 test, AOG/CNA RMSE improved 12.2%/28.4%, wh
 - [Chronological activity and budget log](docs/AGENTIC_RESEARCH_RUN_LOG.md)
 
 The committed experiment folders contain aggregate daily predictions, scores, model configurations, visible agent actions and usage records. Raw operational datasets and API credentials remain excluded. The $4 application budget guard reserves each request before dispatch; it is not an account-wide billing limit.
+
+## Synthetic fleet simulation
+
+A separate synthetic generator creates ten simulated years (2026–2035 calendar labels) from the 731 observed days and 47,400 enquiries in 2024–2025. Three baseline seeds plus demand-shift and maintenance-stress paths contain 18,260 daily rows and 1,189,346 generated enquiries. Dates are simulation labels, not future forecasts. Source data are unchanged; the generated datasets are archived separately under `experiments/synthetic_fleet_v1`.
+
+The proposed evaluation uses six initial training years, one validation year and three final-test years, with quarterly origins and 14/28/90-day horizons. Existing benchmark date/horizon limits must be adapted before executing it. No ML/LLM performance improvement is claimed from generation alone. See [inventory, quality checks and methodology](docs/SYNTHETIC_DATA.md).
+
+```bash
+uv run python -m src.synthetic_data --root . --out /path/to/new/synthetic_fleet
+```

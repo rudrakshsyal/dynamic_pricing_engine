@@ -1,0 +1,64 @@
+{
+  "is_synthetic": true,
+  "version": "fleet-simulation-v1",
+  "calibration_start": "2024-01-01",
+  "calibration_end": "2025-12-31",
+  "original_days": 731,
+  "original_enquiries": 47400,
+  "paths": [
+    {
+      "path": "baseline_seed42",
+      "scenario": "baseline",
+      "seed": 42,
+      "start": "2026-01-01",
+      "end": "2035-12-31",
+      "days": 3652,
+      "enquiries": 232609
+    },
+    {
+      "path": "baseline_seed123",
+      "scenario": "baseline",
+      "seed": 123,
+      "start": "2026-01-01",
+      "end": "2035-12-31",
+      "days": 3652,
+      "enquiries": 238754
+    },
+    {
+      "path": "baseline_seed2026",
+      "scenario": "baseline",
+      "seed": 2026,
+      "start": "2026-01-01",
+      "end": "2035-12-31",
+      "days": 3652,
+      "enquiries": 236493
+    },
+    {
+      "path": "demand_shift_seed42",
+      "scenario": "demand_shift",
+      "seed": 42,
+      "start": "2026-01-01",
+      "end": "2035-12-31",
+      "days": 3652,
+      "enquiries": 248881
+    },
+    {
+      "path": "maintenance_stress_seed42",
+      "scenario": "maintenance_stress",
+      "seed": 42,
+      "start": "2026-01-01",
+      "end": "2035-12-31",
+      "days": 3652,
+      "enquiries": 232609
+    }
+  ],
+  "source_hashes": {
+    "legs_fleet_daily.parquet": "0aa5d8d654d17d69f02b6d3f6f7e0151a255708ddecbddaa3453dbe1569ac5a8",
+    "quotes_deduped_enriched.parquet": "55a090b83cf74e2f9a71527853c0cc0ed19c9c630ea44580b029f50dff69149c",
+    "avl_fleet_daily.parquet": "046ca16404191b6fc7f9a51a23ab5a7ef4e542f25c72f76d45cea6c7d3acec70",
+    "quotes_fleet_daily.parquet": "a511c53d4a78449156870d035599e28291e61781d1a7da6acd2d9680671842ef"
+  },
+  "code_sha256": "e62358547ac087116e8c8f7071a695f8cdd425fd571e41d75d98520ae4a4c679",
+  "warning": "Simulation labels are not forecasts or recovered history. Calibrated on all real 2024\u20132025 data; NOT eligible for augmentation evaluated on that same real period.",
+  "method": "Calendar regression + joint 28-day residual block resampling + 2.5% residual-SD jitter; monthly joint quote/booking/lead histograms."
+}
