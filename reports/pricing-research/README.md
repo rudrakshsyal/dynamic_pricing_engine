@@ -4,7 +4,7 @@ Public dashboard: **https://rudrakshsyal.github.io/dynamic_pricing_engine/**
 
 Alternatively, open `index.html` in a browser. It is self-contained: no server, installation, API key, external fonts or CDN required. JavaScript must be enabled. Repository-relative evidence links work when the surrounding repository is available.
 
-Features: executive verdict, three-approach comparison, 14/28/90-day selector, scenario results, historical comparisons, protocol timeline, expandable methodology, and print styling. Use **Print / Save PDF** for a shareable report. RCA/explanation-layer work is excluded.
+Features: executive verdict, three-approach comparison, 14/28/90-day selector, scenario results, historical comparisons, protocol timeline, expandable methodology, and print styling. Use **Print / Save PDF** for a shareable report. Forecasting research remains the default tab. A separate Pricing explanation agent tab documents the implemented read-only workflow, clearly labeled examples, safeguards, and proposed next steps. It makes no API calls.
 
 Rebuild from the repository root:
 
@@ -21,3 +21,7 @@ Verification: rendered in the in-app browser; the 14-day selector updated both t
 ## Publish updates
 
 Run `python3 reports/pricing-research/publish.py` from an authenticated checkout after updating the report. This rebuilds the page, converts evidence links to GitHub links, and pushes only `index.html` and `.nojekyll` to `gh-pages`. It preserves branch history and does not force-push. GitHub Pages then rebuilds automatically.
+
+## Separate explanation-agent tab
+
+The approved Pricing explanation agent tab documents the implemented read-only layer separately from the forecasting research, which remains the default view. Click the tab buttons or use arrow/Home/End keys to switch; only the selected panel prints.
