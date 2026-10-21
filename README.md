@@ -404,7 +404,7 @@ The first baseline-seed pilot compared the current engine, direct GPT-5.5 foreca
 - [All horizon results and artifacts](experiments/synthetic_three_way_v1/REPORT.md)
 - [Synthetic datasets and quality report](experiments/synthetic_fleet_v1/REPORT.md)
 
-Only baseline_seed42 was benchmarked under this approval; the other seeds and stress scenarios remain untested.
+This initial paid pilot covered baseline_seed42 only. The later offline robustness study below covers the other seeds and stress scenarios.
 
 ### Offline synthetic robustness
 
@@ -417,3 +417,9 @@ See the [executive summary](experiments/synthetic_robustness_v1/EXECUTIVE_SUMMAR
 Open [the standalone HTML report](reports/pricing-research/index.html) locally to explore the traditional ML, direct LLM, and agent-selected ML results. Includes horizon switching, scenario comparisons, methodology, and print-to-PDF styling. GitHub displays HTML source; download it to view in a browser. See [report instructions](reports/pricing-research/README.md) and the [LinkedIn draft](reports/pricing-research/LINKEDIN_DRAFT.md).
 
 **[Open the public research dashboard](https://rudrakshsyal.github.io/dynamic_pricing_engine/)** — accessible without a GitHub account or local setup.
+
+### Conventional AutoML comparison
+
+A fixed-grid AutoML baseline ran **34 validation trials without an LLM**, then froze its choices for the same 60 synthetic quarterly windows. At 90 days, supply RMSE changed **−5.6% to +1.4%** versus current ML: lower in four of five paths and slightly below frozen GPT choices in all five. Enquiry RMSE worsened in every path; diagnostic price MAE improved versus current ML in four. **$0 additional API cost.**
+
+This is a retrospective comparison with unequal search budgets (34 AutoML trials vs 20 agent trials), not proof of search superiority or revenue uplift. See [methodology](docs/AUTOML_COMPARISON.md), [executive summary](experiments/automl_grid_v1/EXECUTIVE_SUMMARY.md), and [all results](experiments/automl_grid_v1/REPORT.md). The public dashboard includes a separate AutoML comparison section.

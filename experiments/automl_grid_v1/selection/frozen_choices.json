@@ -1,0 +1,38 @@
+{
+  "aog_rate": {
+    "trial_id": "7f35f6f048ff1122",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "smx_rate": {
+    "trial_id": "3294110c0ff8c851",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "umx_rate": {
+    "trial_id": "9a191d4bad1f2861",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "cna_rate": {
+    "trial_id": "799945884310db41",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "program_live_legs": {
+    "trial_id": "af5c43fd109ddd70",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "non_program_live_legs": {
+    "trial_id": "a312b9b63a3c9d18",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "daily_quote_count": {
+    "trial_id": "8deca3ad926e2e56",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "quote_multiplier": {
+    "trial_id": "ab23ba2d6e7c2930",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  },
+  "conversion": {
+    "trial_id": "0d3c0c0d2c727a1c",
+    "reason": "Minimum validation loss; fixed order breaks exact ties."
+  }
+}

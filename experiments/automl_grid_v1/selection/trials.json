@@ -1,0 +1,2322 @@
+{
+  "ca9963f91dd90846": {
+    "id": "ca9963f91dd90846",
+    "component": "aog_rate",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.02725303496108227,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.024457479798312625,
+        "rmse": 0.0302294116588748,
+        "bias": 0.0027570521594080482,
+        "wape": 0.6493698177630262
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.01978714263508281,
+        "rmse": 0.024119249329341157,
+        "bias": -0.0016198370233451098,
+        "wape": 0.5445245702267797
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.02322728923243306,
+        "rmse": 0.02834760077847722,
+        "bias": 0.0020446061286313877,
+        "wape": 0.5605394766424949
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.020935975166462843,
+        "rmse": 0.025918519846073934,
+        "bias": 0.0036474325585986655,
+        "wape": 0.5468880269186466
+      }
+    ],
+    "status": "ok",
+    "seconds": 11.136395750101656
+  },
+  "3f3962d948e4c163": {
+    "id": "3f3962d948e4c163",
+    "component": "aog_rate",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.04185147329608492,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.04770457639042844,
+        "rmse": 0.05666646081516662,
+        "bias": 0.03229657899482766,
+        "wape": 1.266602787064435
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.024643775543483848,
+        "rmse": 0.031979970939389764,
+        "bias": -0.012198220896810422,
+        "wape": 0.6781747892587829
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.026219042041694472,
+        "rmse": 0.03466523609591713,
+        "bias": -0.005331358433923257,
+        "wape": 0.6327388425334345
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.032461964142550946,
+        "rmse": 0.03963203694014394,
+        "bias": 0.01559663125619948,
+        "wape": 0.8479690761317877
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.024220332968980074
+  },
+  "5ee7d23f4112e433": {
+    "id": "5ee7d23f4112e433",
+    "component": "aog_rate",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.027438464905661167,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.02333548199352048,
+        "rmse": 0.030261108087766414,
+        "bias": -0.00442886589292178,
+        "wape": 0.6195796874619205
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.019727174549373887,
+        "rmse": 0.02486869435865688,
+        "bias": -0.0044322126045353225,
+        "wape": 0.542874301832793
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.022541333992204832,
+        "rmse": 0.02906516539101729,
+        "bias": -0.005233778853567779,
+        "wape": 0.543985457466602
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.020257740254797794,
+        "rmse": 0.025149691141360647,
+        "bias": 0.0003870798232654711,
+        "wape": 0.529171223680266
+      }
+    ],
+    "status": "ok",
+    "seconds": 1.5596626671031117
+  },
+  "7f35f6f048ff1122": {
+    "id": "7f35f6f048ff1122",
+    "component": "aog_rate",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.026906520762384745,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.02392881451655512,
+        "rmse": 0.029672478108631002,
+        "bias": 0.0016626944263222717,
+        "wape": 0.635333241611129
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.019969268753417358,
+        "rmse": 0.024160425008909768,
+        "bias": 0.0011372159447442375,
+        "wape": 0.5495365190534565
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.022814268665569164,
+        "rmse": 0.028367806382180807,
+        "bias": -0.0021481786273452245,
+        "wape": 0.5505721347768242
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.02026618617230739,
+        "rmse": 0.02503854839025875,
+        "bias": -0.00023259862525149518,
+        "wape": 0.5293918473257194
+      }
+    ],
+    "status": "ok",
+    "seconds": 5.245155040873215
+  },
+  "003697207d7651b3": {
+    "id": "003697207d7651b3",
+    "component": "smx_rate",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.03461579582045147,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.03350048901246598,
+        "rmse": 0.04316148082461748,
+        "bias": -0.005117464838205442,
+        "wape": 0.3701355691070005
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.023421645201481996,
+        "rmse": 0.030595190438271972,
+        "bias": -0.0036197700176131024,
+        "wape": 0.21874717484073722
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.030612774095994347,
+        "rmse": 0.03626423492305248,
+        "bias": 0.005289230360395494,
+        "wape": 0.3076979164430768
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.02020802348428888,
+        "rmse": 0.026056466407601214,
+        "bias": -0.009585207003553272,
+        "wape": 0.18455011550854378
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.028573540970683098
+  },
+  "d469eb41a9e4979a": {
+    "id": "d469eb41a9e4979a",
+    "component": "smx_rate",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.04004402405791386,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.033111078067021224,
+        "rmse": 0.04189139598822675,
+        "bias": -0.009459397456156418,
+        "wape": 0.3658330993175282
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.034492075444393366,
+        "rmse": 0.04305131486606938,
+        "bias": -0.023174400479566523,
+        "wape": 0.3221397981631625
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.028679334707661867,
+        "rmse": 0.03466002394925676,
+        "bias": 0.011691168464894328,
+        "wape": 0.28826435352932817
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.03418703698023181,
+        "rmse": 0.04005587873583871,
+        "bias": -0.02065482720037404,
+        "wape": 0.312213692175381
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.025129625108093023
+  },
+  "3294110c0ff8c851": {
+    "id": "3294110c0ff8c851",
+    "component": "smx_rate",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.03301487900700325,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.03315414277600263,
+        "rmse": 0.04056351449398757,
+        "bias": 0.0024691845230216014,
+        "wape": 0.3663089067172745
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.02286530899723939,
+        "rmse": 0.03043651881451271,
+        "bias": -0.009763354017818165,
+        "wape": 0.21355125577131212
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.025794829280792735,
+        "rmse": 0.03046350890324388,
+        "bias": 0.006781993239635145,
+        "wape": 0.25927134861467327
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.023501176289548634,
+        "rmse": 0.029327856775429588,
+        "bias": -0.01416328306644609,
+        "wape": 0.21462488907907526
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.12245299993082881
+  },
+  "a0bcc512ec30f254": {
+    "id": "a0bcc512ec30f254",
+    "component": "smx_rate",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.03515377955105104,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.03812959368139603,
+        "rmse": 0.045448121641724994,
+        "bias": 0.02307418200928507,
+        "wape": 0.4212809804606292
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.02321009117602028,
+        "rmse": 0.0297607490859072,
+        "bias": 0.002275192874859466,
+        "wape": 0.21677135952128193
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.02903386474502864,
+        "rmse": 0.033395987968286994,
+        "bias": 0.010881215465901733,
+        "wape": 0.2918278382848149
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.022524279531826282,
+        "rmse": 0.029607885902276945,
+        "bias": -0.00525875606390065,
+        "wape": 0.20570336295269545
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.918498333077878
+  },
+  "9a191d4bad1f2861": {
+    "id": "9a191d4bad1f2861",
+    "component": "umx_rate",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.05524962239792437,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.0350632769653177,
+        "rmse": 0.04491704273635684,
+        "bias": 0.00767826251057176,
+        "wape": 0.2558612692157859
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.04857480495424792,
+        "rmse": 0.05856785186318733,
+        "bias": -0.0015969212107927394,
+        "wape": 0.3356781322333501
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.04900780826581964,
+        "rmse": 0.06247300895092208,
+        "bias": -0.006188707371023917,
+        "wape": 0.30931387431816015
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.043216525973988576,
+        "rmse": 0.05347403344636489,
+        "bias": 0.01653903865005727,
+        "wape": 0.5098485846334156
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.02703962498344481
+  },
+  "8e9e9c4acf84a69d": {
+    "id": "8e9e9c4acf84a69d",
+    "component": "umx_rate",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.07532990939108046,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.05940822559866686,
+        "rmse": 0.07070253390641977,
+        "bias": -0.0360043970113508,
+        "wape": 0.4335095096378968
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.06463014697994253,
+        "rmse": 0.07978976716117149,
+        "bias": -0.03857680797655076,
+        "wape": 0.44662921538497596
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.05746585142799838,
+        "rmse": 0.07337212419904411,
+        "bias": -0.03173425296577121,
+        "wape": 0.3626970022771468
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.0630987544175436,
+        "rmse": 0.07713402064958895,
+        "bias": 0.013598560968288011,
+        "wape": 0.7444099197441104
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.023632166907191277
+  },
+  "6afb7e8cb0446ede": {
+    "id": "6afb7e8cb0446ede",
+    "component": "umx_rate",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.06074260129157394,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.03899802033802068,
+        "rmse": 0.047301392085111575,
+        "bias": 0.016848509970101032,
+        "wape": 0.2845736007635188
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.05100198985756493,
+        "rmse": 0.06346780120610182,
+        "bias": 0.02783817544380986,
+        "wape": 0.35245129057537217
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.04699168483079846,
+        "rmse": 0.06007461896503616,
+        "bias": -0.004406380843855738,
+        "wape": 0.29658906631598364
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.05951629935416149,
+        "rmse": 0.06988641584562398,
+        "bias": 0.0472782085263555,
+        "wape": 0.7021457718883213
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.12410995783284307
+  },
+  "77a87951fd5d1ce5": {
+    "id": "77a87951fd5d1ce5",
+    "component": "umx_rate",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.06039594620782077,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.03316236201281484,
+        "rmse": 0.0436608363145939,
+        "bias": -0.0021895006748096062,
+        "wape": 0.24199004682833658
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.04706583430483466,
+        "rmse": 0.05827209602884676,
+        "bias": -0.009110710038702294,
+        "wape": 0.3252503302140299
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.05436746077307979,
+        "rmse": 0.06762156081249661,
+        "bias": -0.028006604572751604,
+        "wape": 0.34314144059142926
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.057624241920763944,
+        "rmse": 0.06867386681517829,
+        "bias": 0.04710995734861031,
+        "wape": 0.6798241534166408
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.917512041982263
+  },
+  "a507de7fc6fd2247": {
+    "id": "a507de7fc6fd2247",
+    "component": "cna_rate",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.021626240484821382,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.011440373937565296,
+        "rmse": 0.014964671458510888,
+        "bias": 0.0010007796282051726,
+        "wape": 0.683699105282627
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.015591940609681137,
+        "rmse": 0.01933840836634352,
+        "bias": 0.00941530790879807,
+        "wape": 1.8848634556058124
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.01965297840861346,
+        "rmse": 0.02984057530669265,
+        "bias": -0.0063207927323690885,
+        "wape": 0.8311526659543144
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.014496353233793712,
+        "rmse": 0.01955509512608617,
+        "bias": 0.004904708043969514,
+        "wape": 1.1471654562433753
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.02866800012998283
+  },
+  "e4c426b25deadcd3": {
+    "id": "e4c426b25deadcd3",
+    "component": "cna_rate",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.027055468526828337,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.01637732003380087,
+        "rmse": 0.02152941411174209,
+        "bias": -0.011614475891162128,
+        "wape": 0.9787406526346322
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.01750422520859857,
+        "rmse": 0.02633425300522341,
+        "bias": 0.00851296821362585,
+        "wape": 2.1160338690551366
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.021244290373277068,
+        "rmse": 0.034775157399000396,
+        "bias": -0.017137621794434777,
+        "wape": 0.8984515330418328
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.015510579142266452,
+        "rmse": 0.02369964943541455,
+        "bias": -0.0035051167409479536,
+        "wape": 1.227425981650185
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.023727749940007925
+  },
+  "bdac8eb9c0b192a8": {
+    "id": "bdac8eb9c0b192a8",
+    "component": "cna_rate",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.022239440653929674,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.010635502676292914,
+        "rmse": 0.015723359780300924,
+        "bias": -0.0029427610104317873,
+        "wape": 0.6355984256892169
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.011034640879332576,
+        "rmse": 0.016159735249483047,
+        "bias": 0.0011535822225254627,
+        "wape": 1.333945007863477
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.019731779531800626,
+        "rmse": 0.03329193992360707,
+        "bias": -0.01637176994340361,
+        "wape": 0.834485278561699
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.013976397212981238,
+        "rmse": 0.019017269320473103,
+        "bias": 0.003604713425913256,
+        "wape": 1.1060188605291283
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.12403666600584984
+  },
+  "799945884310db41": {
+    "id": "799945884310db41",
+    "component": "cna_rate",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.021608515865855108,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 0.010704311885167682,
+        "rmse": 0.015253163516755906,
+        "bias": -0.0014226000051485107,
+        "wape": 0.6397105984905276
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 0.013725899840855498,
+        "rmse": 0.01785509239980577,
+        "bias": 0.006042750585585446,
+        "wape": 1.6592833216200444
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 0.019243773750234974,
+        "rmse": 0.030908713262358972,
+        "bias": -0.010455783425713594,
+        "wape": 0.8138468135964276
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 0.013750261571492516,
+        "rmse": 0.01899736703573491,
+        "bias": 0.0023351055263637556,
+        "wape": 1.0881236704659776
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.935640000039712
+  },
+  "af5c43fd109ddd70": {
+    "id": "af5c43fd109ddd70",
+    "component": "program_live_legs",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 6.143483893252671,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 5.532123963208135,
+        "rmse": 7.105892487359974,
+        "bias": -2.2201314676196513,
+        "wape": 0.21525774175907136
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 4.663783783426779,
+        "rmse": 6.2335145870551845,
+        "bias": 1.6428400786625026,
+        "wape": 0.21459127837853278
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 3.8345911358308475,
+        "rmse": 4.800080069997378,
+        "bias": 0.7063814427184743,
+        "wape": 0.1848490638590125
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 4.572319533390277,
+        "rmse": 6.211150985065913,
+        "bias": -0.48732524563513,
+        "wape": 0.18586664769879174
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.029132167110219598
+  },
+  "a23a160f6a6d65ac": {
+    "id": "a23a160f6a6d65ac",
+    "component": "program_live_legs",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 8.91534258081726,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 8.766666666666667,
+        "rmse": 11.15098401238404,
+        "bias": 3.9444444444444446,
+        "wape": 0.3411154345006485
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 7.488888888888889,
+        "rmse": 9.370165420097983,
+        "bias": 3.9555555555555557,
+        "wape": 0.3445807770961145
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 6.0777777777777775,
+        "rmse": 7.437890979452591,
+        "bias": 0.8111111111111111,
+        "wape": 0.2929833958221746
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 5.622222222222222,
+        "rmse": 7.103989489481714,
+        "bias": -2.1777777777777776,
+        "wape": 0.22854561878952123
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.024964749813079834
+  },
+  "6905137eea8ec3b2": {
+    "id": "6905137eea8ec3b2",
+    "component": "program_live_legs",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 6.850591016477483,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 5.83231360340322,
+        "rmse": 7.5630183516575595,
+        "bias": -1.8088206766312864,
+        "wape": 0.2269382725059619
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 4.921251997780378,
+        "rmse": 6.454891487237064,
+        "bias": -0.23244177314861061,
+        "wape": 0.22643797535799284
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 4.612436935339107,
+        "rmse": 5.61214860693149,
+        "bias": -0.22302932995663408,
+        "wape": 0.2223456476596248
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 5.745799285000155,
+        "rmse": 7.573724738487024,
+        "bias": -3.006756179900698,
+        "wape": 0.2335690766260225
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.1266608750447631
+  },
+  "931af87cd6ae2831": {
+    "id": "931af87cd6ae2831",
+    "component": "program_live_legs",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 6.433179354305223,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 5.756249087693223,
+        "rmse": 7.330333558574916,
+        "bias": -2.4337378806610377,
+        "wape": 0.2239785637234718
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 4.540919710606798,
+        "rmse": 6.255722966776607,
+        "bias": 1.0637034356995019,
+        "wape": 0.20893802349417784
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 4.299272743386532,
+        "rmse": 5.329405878739219,
+        "bias": 1.585003386852339,
+        "wape": 0.20724935559977944
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 4.931694957030413,
+        "rmse": 6.653777835280485,
+        "bias": -1.511583001513311,
+        "wape": 0.20047540475733386
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.9132782919332385
+  },
+  "a312b9b63a3c9d18": {
+    "id": "a312b9b63a3c9d18",
+    "component": "non_program_live_legs",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 2.866249818275977,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 2.465347670156146,
+        "rmse": 2.9837192246272397,
+        "bias": 0.6336596605621685,
+        "wape": 0.32297131050080535
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 2.494888246919972,
+        "rmse": 3.1771689193169377,
+        "bias": -0.45040605424147345,
+        "wape": 0.28935559564793484
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 2.0638395081708683,
+        "rmse": 2.774369949316778,
+        "bias": 0.025360544491433788,
+        "wape": 0.3627842885456606
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 1.9928563727902677,
+        "rmse": 2.4834332513906183,
+        "bias": -0.2865891873731411,
+        "wape": 0.26769712470317036
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.027939874911680818
+  },
+  "ddb6d3947e62e632": {
+    "id": "ddb6d3947e62e632",
+    "component": "non_program_live_legs",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 4.6022337571613585,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 4.933333333333334,
+        "rmse": 5.9066817155564495,
+        "bias": -2.933333333333333,
+        "wape": 0.6462882096069869
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 3.688888888888889,
+        "rmse": 4.43471156521669,
+        "bias": 0.9333333333333333,
+        "wape": 0.42783505154639173
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 3.8222222222222224,
+        "rmse": 4.640402281411961,
+        "bias": 1.5777777777777777,
+        "wape": 0.671875
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 2.2777777777777777,
+        "rmse": 2.938253449471868,
+        "bias": -0.32222222222222224,
+        "wape": 0.30597014925373134
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.02363275014795363
+  },
+  "b3039db74c9157f3": {
+    "id": "b3039db74c9157f3",
+    "component": "non_program_live_legs",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 3.612153043575724,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 3.0273311691892704,
+        "rmse": 3.8829913460989722,
+        "bias": 2.1228025218218396,
+        "wape": 0.3965936029505596
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 2.846729149643406,
+        "rmse": 3.4098232927939662,
+        "bias": 0.8243830212488932,
+        "wape": 0.3301618859122509
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 3.2951470395470044,
+        "rmse": 3.941559384100432,
+        "bias": 2.3633523720681096,
+        "wape": 0.5792250655453719
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 2.519646513703072,
+        "rmse": 3.154392394820831,
+        "bias": 1.298618837961991,
+        "wape": 0.33845997945265144
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.12633483298122883
+  },
+  "08a12c24d0faab12": {
+    "id": "08a12c24d0faab12",
+    "component": "non_program_live_legs",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 3.063603390088185,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 2.5143024576280952,
+        "rmse": 3.0799337775665028,
+        "bias": 0.516045127551609,
+        "wape": 0.329384601435995
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 2.5743332252889854,
+        "rmse": 3.2215958101291284,
+        "bias": -0.5548568257915568,
+        "wape": 0.29856957509794935
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 2.5750486495280462,
+        "rmse": 3.2895897055250227,
+        "bias": 1.2057487982971868,
+        "wape": 0.45264527042485186
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 2.1359002335983606,
+        "rmse": 2.6185092816918663,
+        "bias": -0.17983875501378097,
+        "wape": 0.28691197167739163
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.927048458950594
+  },
+  "552afe90cbf36cee": {
+    "id": "552afe90cbf36cee",
+    "component": "daily_quote_count",
+    "recipe": {
+      "family": "current",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 19.385479675803637,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 13.443825891017994,
+        "rmse": 17.6739874752522,
+        "bias": -4.041995334364791,
+        "wape": 0.1793041390325458
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 15.923029928113548,
+        "rmse": 21.203251169676793,
+        "bias": -10.012250356764628,
+        "wape": 0.24970773541213087
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 15.712840745651825,
+        "rmse": 21.86521887976211,
+        "bias": 2.139940042794023,
+        "wape": 0.31793068055500534
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 11.694882822567862,
+        "rmse": 16.22195422704387,
+        "bias": -2.705361063740149,
+        "wape": 0.17539401000351734
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.027830916922539473
+  },
+  "05f89dc209c4322b": {
+    "id": "05f89dc209c4322b",
+    "component": "daily_quote_count",
+    "recipe": {
+      "family": "seasonal_naive",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 26.1770149388946,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 26.533333333333335,
+        "rmse": 31.754964616226196,
+        "bias": -21.91111111111111,
+        "wape": 0.35388263189093067
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 21.711111111111112,
+        "rmse": 25.65107751689542,
+        "bias": 16.711111111111112,
+        "wape": 0.3404774350932218
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 21.377777777777776,
+        "rmse": 27.239269038977124,
+        "bias": 9.28888888888889,
+        "wape": 0.43255395683453235
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 14.033333333333333,
+        "rmse": 18.237628988196658,
+        "bias": -0.3888888888888889,
+        "wape": 0.21046492251291452
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.024051500018686056
+  },
+  "fa71d15ff4fa240f": {
+    "id": "fa71d15ff4fa240f",
+    "component": "daily_quote_count",
+    "recipe": {
+      "family": "ridge",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10.0,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 21.147152411510625,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 15.76280426595954,
+        "rmse": 20.34524753803505,
+        "bias": -3.263776247601861,
+        "wape": 0.21023301480977447
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 17.521207236467827,
+        "rmse": 22.473655530979144,
+        "bias": -7.995044680472759,
+        "wape": 0.2747706309953136
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 16.627154885495248,
+        "rmse": 21.896324176099856,
+        "bias": 1.5244087037183693,
+        "wape": 0.3364307418378086
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 15.653244977442316,
+        "rmse": 19.757654661643244,
+        "bias": -3.8696939556237453,
+        "wape": 0.23475954807028962
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.12851479114033282
+  },
+  "8deca3ad926e2e56": {
+    "id": "8deca3ad926e2e56",
+    "component": "daily_quote_count",
+    "recipe": {
+      "family": "extra_trees",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 1095,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": ""
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 19.372742080592623,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 90,
+        "mae": 14.718977771026257,
+        "rmse": 20.19084355036192,
+        "bias": -9.512139757975156,
+        "wape": 0.19631120322945517
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 90,
+        "mae": 15.2250073387378,
+        "rmse": 20.234529379892308,
+        "bias": -6.63754631002884,
+        "wape": 0.2387612232943723
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 90,
+        "mae": 15.774487696473498,
+        "rmse": 20.078504016900713,
+        "bias": 7.7809838024611775,
+        "wape": 0.319178033426847
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 90,
+        "mae": 12.629666318086079,
+        "rmse": 16.761857797602325,
+        "bias": -3.3249105095034883,
+        "wape": 0.18941342586698
+      }
+    ],
+    "status": "ok",
+    "seconds": 4.946412833174691
+  },
+  "ab23ba2d6e7c2930": {
+    "id": "ab23ba2d6e7c2930",
+    "component": "quote_multiplier",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "current_lowess"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.07183412033581171,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 16,
+        "loss": 0.07255907264464934
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 16,
+        "loss": 0.061160212339649876
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 16,
+        "loss": 0.05571161134840946
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 16,
+        "loss": 0.09790558501053817
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.14513845811598003
+  },
+  "dd0c5c996315b38c": {
+    "id": "dd0c5c996315b38c",
+    "component": "quote_multiplier",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "constant_one"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.2030996047722933,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 16,
+        "loss": 0.19973114836722192
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 16,
+        "loss": 0.22227622292094265
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 16,
+        "loss": 0.16149148697867444
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 16,
+        "loss": 0.22889956082233417
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.09884670795872808
+  },
+  "4a5a97a4b1f7242a": {
+    "id": "4a5a97a4b1f7242a",
+    "component": "quote_multiplier",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "shrink_half"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.12441828875362929,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 16,
+        "loss": 0.12036534689909242
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 16,
+        "loss": 0.13989370235621174
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 16,
+        "loss": 0.08472137356035085
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 16,
+        "loss": 0.15269273219886212
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.0974161250051111
+  },
+  "583d5fec354c812b": {
+    "id": "583d5fec354c812b",
+    "component": "conversion",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "current_exponential"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.158422193838639,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 3324,
+        "loss": 0.1640684165734512,
+        "brier": 0.03772729099400129
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 2936,
+        "loss": 0.17679334152199255,
+        "brier": 0.041745986412193924
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 2052,
+        "loss": 0.13413495894108493,
+        "brier": 0.02887960662865495
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 3088,
+        "loss": 0.15101664721977215,
+        "brier": 0.03459532584668206
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.10307991597801447
+  },
+  "190b8f4804205dd3": {
+    "id": "190b8f4804205dd3",
+    "component": "conversion",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "constant"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.1615073253341901,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 3324,
+        "loss": 0.16615811708660516,
+        "brier": 0.0378638776967071
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 2936,
+        "loss": 0.18093474397195802,
+        "brier": 0.04205746746616738
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 2052,
+        "loss": 0.13460445890808653,
+        "brier": 0.028897571732311944
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 3088,
+        "loss": 0.15590711451840325,
+        "brier": 0.03495436839718557
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.10357183287851512
+  },
+  "0d3c0c0d2c727a1c": {
+    "id": "0d3c0c0d2c727a1c",
+    "component": "conversion",
+    "recipe": {
+      "family": "curve",
+      "lags": [
+        1,
+        7,
+        14,
+        28
+      ],
+      "windows": [
+        7,
+        28
+      ],
+      "calendar": true,
+      "log_transform": false,
+      "train_days": 730,
+      "mean_window": 28,
+      "alpha": 10,
+      "trees": 150,
+      "depth": 4,
+      "min_leaf": 7,
+      "learning_rate": 0.04,
+      "changepoint_scale": 0.05,
+      "seasonality_mode": "additive",
+      "weekly": true,
+      "yearly": true,
+      "curve_name": "isotonic"
+    },
+    "rationale": "Predeclared fixed grid",
+    "kind": "model",
+    "score": 0.15829422555349884,
+    "folds": [
+      {
+        "origin": "2031-12-31",
+        "n": 3324,
+        "loss": 0.1638754045348879,
+        "brier": 0.03771740519483283
+      },
+      {
+        "origin": "2032-03-31",
+        "n": 2936,
+        "loss": 0.17670658192951283,
+        "brier": 0.0417327818924713
+      },
+      {
+        "origin": "2032-06-30",
+        "n": 2052,
+        "loss": 0.13431745010165946,
+        "brier": 0.0288981331719529
+      },
+      {
+        "origin": "2032-09-30",
+        "n": 3088,
+        "loss": 0.15071321064840176,
+        "brier": 0.034573935437002636
+      }
+    ],
+    "status": "ok",
+    "seconds": 0.11666083289310336
+  }
+}

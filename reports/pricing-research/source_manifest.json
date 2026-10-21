@@ -1,5 +1,9 @@
 [
   {
+    "path": "experiments/automl_grid_v1/comparison_results.json",
+    "sha256": "d21ba333c24ca22af4b6a58423ef60cb164591a496fb9fab9169cfb289ce01ac"
+  },
+  {
     "path": "experiments/synthetic_three_way_v1/aggregate_results.json",
     "sha256": "9a926f6ba3d5f63673220dcdc7061a99a60cc96d0e7c93bc884157ab663ce864"
   },

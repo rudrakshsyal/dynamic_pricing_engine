@@ -25,3 +25,7 @@ Run `python3 reports/pricing-research/publish.py` from an authenticated checkout
 ## Separate explanation-agent tab
 
 The approved Pricing explanation agent tab documents the implemented read-only layer separately from the forecasting research, which remains the default view. Click the tab buttons or use arrow/Home/End keys to switch; only the selected panel prints.
+
+## AutoML comparison
+
+The research tab now includes a conventional fixed-grid AutoML baseline alongside current ML and frozen GPT choices. Its table follows the 14/28/90-day selector; the explanatory verdict explicitly refers to 90 days. Source: `experiments/automl_grid_v1/comparison_results.json`. Unequal trial counts, related synthetic paths, previously inspected tests and demand-forecast regressions are disclosed.

@@ -5,6 +5,7 @@ from hashlib import sha256
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).parent
 sources = {
+ 'automl': 'experiments/automl_grid_v1/comparison_results.json',
  'pilot': 'experiments/synthetic_three_way_v1/aggregate_results.json',
  'robust': 'experiments/synthetic_robustness_v1/aggregate_results.json',
  'historical': 'experiments/gpt55_adaptive_2026-10-14/final_results.json',
