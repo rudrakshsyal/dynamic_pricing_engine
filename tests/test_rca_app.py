@@ -75,7 +75,8 @@ class AppTests(unittest.TestCase):
         with patch('src.rca_chat.ask_about_date',new_callable=AsyncMock,return_value=reply) as chat:
             self.app.run()
             chat.assert_not_called()
-            [x for x in self.app.text_input if x.label == "Your question"][0].set_value('Why?').run()
+            # Form edits and submission are sent together, as in the browser.
+            [x for x in self.app.text_input if x.label == "Your question"][0].set_value('Why?')
             [b for b in self.app.button if b.label == 'Ask'][0].click().run()
             self.assertFalse(self.app.exception)
             self.assertEqual(chat.await_count,1)
