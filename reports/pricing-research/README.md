@@ -2,7 +2,7 @@
 
 Public dashboard: **https://rudrakshsyal.github.io/dynamic_pricing_engine/**
 
-Alternatively, open `index.html` in a browser. It is self-contained: no server, installation, API key, external fonts or CDN required. JavaScript must be enabled. Repository-relative evidence links work when the surrounding repository is available.
+Alternatively, open `index.html` in a browser. The report content is self-contained: no server, installation, API key, or external fonts. JavaScript must be enabled. Visit counting loads GoatCounter (no cookies). Repository-relative evidence links work when the surrounding repository is available.
 
 Features: executive verdict, three-approach comparison, 14/28/90-day selector, scenario results, historical comparisons, protocol timeline, expandable methodology, and print styling. Use **Print / Save PDF** for a shareable report. Forecasting research remains the default tab. A separate Pricing explanation agent tab documents the implemented read-only workflow, clearly labeled examples, safeguards, and proposed next steps. It makes no API calls.
 
@@ -20,7 +20,11 @@ Verification: rendered in the in-app browser; the 14-day selector updated both t
 
 ## Publish updates
 
-Run `python3 reports/pricing-research/publish.py` from an authenticated checkout after updating the report. This rebuilds the page, converts evidence links to GitHub links, and pushes only `index.html` and `.nojekyll` to `gh-pages`. It preserves branch history and does not force-push. GitHub Pages then rebuilds automatically.
+Run `python3 reports/pricing-research/publish.py` from an authenticated checkout after updating the report. This rebuilds the page, converts evidence links to GitHub links, and pushes `index.html`, `supply_dashboard.html`, `demand_side_dashboard.html`, and `.nojekyll` to `gh-pages`. It preserves branch history and does not force-push. GitHub Pages then rebuilds automatically.
+
+## Visit counts
+
+GoatCounter (`rudrakshsyal`, viewed at https://rudrakshsyal.goatcounter.com/) counts visits to each Pages HTML file. Counted paths start with `/dynamic_pricing_engine`, so they stay separate from the portfolio site. Referrers are kept, including LinkedIn. Clicks on GitHub and portfolio links, tab changes, and file downloads are events. GoatCounter sets no cookies. Localhost and `file:` views are not counted. The script is in `goatcounter.py` and is included in `template.html`, `index.html`, `supply_dashboard.html`, and `demand_side_dashboard.html`. Revert that change and publish again to remove it.
 
 ## Separate explanation-agent tab
 

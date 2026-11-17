@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Demand Dashboard</title>
+<style>body{font-family:system-ui,Arial,sans-serif;margin:0;padding:12px;background:#fff;color:#2c2c2a}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}</style>
+</head>
+<body>
 <h2 class="sr-only">Demand-side dashboard: three tabs covering quote forecast, elasticity curves, and the D(Y) equilibrium curve with three supply scenarios.</h2>
 <style>
 .tnav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
@@ -209,3 +215,82 @@ function _dC4(){
 
 setTimeout(()=>{if(!_di.ov){_dC1();_di.ov=true;}},35);
 </script>
+<script>
+window.goatcounter = window.goatcounter || {};
+// Prefix page views so this project does not share the portfolio's "/" path.
+// Leave event names (no leading slash) unchanged. Do not set referrer.
+window.goatcounter.path = function (p) {
+  if (!p || p.charAt(0) !== '/') return p;
+  var query = '';
+  var q = p.indexOf('?');
+  if (q >= 0) { query = p.slice(q); p = p.slice(0, q); }
+  var prefix = '/dynamic_pricing_engine';
+  if (p !== prefix && p.indexOf(prefix + '/') !== 0) p = prefix + p;
+  if (p === prefix) p = prefix + '/';
+  p = p.replace(/\/index\.html$/, '/');
+  return p + query;
+};
+window.gcTrack = function (name) {
+  try {
+    if (!name || !window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+    window.goatcounter.count({path: name, event: true});
+  } catch (err) {}
+};
+window.gcEventName = function (href, opts) {
+  opts = opts || {};
+  if (!href) return null;
+  var value = String(href).trim();
+  if (!value || value.charAt(0) === '#' || /^javascript:/i.test(value)) return null;
+  var base = opts.base || location.href;
+  var url;
+  try { url = new URL(value, base); }
+  catch (err) { return null; }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
+  var host = url.hostname.replace(/^www\./, '').toLowerCase();
+  var path = url.pathname || '/';
+  var leaf = path.split('/').pop() || '';
+  var dot = leaf.lastIndexOf('.');
+  var ext = dot > 0 ? leaf.slice(dot + 1).toLowerCase() : '';
+  var downloadExt = {pdf:1, csv:1, tsv:1, zip:1, gz:1, tgz:1, xlsx:1, xls:1, parquet:1, '7z':1};
+  var githubBlob = host === 'github.com' && path.indexOf('/blob/') !== -1;
+  var rawFile = host === 'raw.githubusercontent.com' || (host === 'github.com' && (path.indexOf('/raw/') !== -1 || path.indexOf('/releases/download/') !== -1));
+  if (opts.download || rawFile || (!githubBlob && downloadExt[ext])) {
+    var preferred = (typeof opts.download === 'string' && opts.download) ? opts.download : leaf;
+    var name = String(preferred || 'file').split(/[?#]/)[0];
+    name = name.replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'file';
+    return 'download-' + name;
+  }
+  var portfolio = (host === 'github.com' && /\/rudrakshsyal\/ai_portfolio(?:\/|$)/.test(path))
+    || (host === 'rudrakshsyal.github.io' && (path === '/ai_portfolio' || path.indexOf('/ai_portfolio/') === 0))
+    || host.indexOf('rudraksh-syal-portfolio') === 0;
+  if (portfolio) return 'outbound-portfolio';
+  if (host === 'rudrakshsyal.github.io' && (path === '/dynamic_pricing_engine' || path.indexOf('/dynamic_pricing_engine/') === 0)) return null;
+  var github = host === 'github.com' || host.endsWith('.github.com') || host === 'github.io' || host.endsWith('.github.io') || host === 'githubusercontent.com' || host.endsWith('.githubusercontent.com');
+  if (github) return 'outbound-github';
+  return null;
+};
+window.gcTabName = function (tab) {
+  if (!tab) return null;
+  var id = tab.id || '';
+  if (id) return 'tab-' + id.replace(/-tab$/, '');
+  var onclick = tab.getAttribute('onclick') || '';
+  var match = onclick.match(/(?:sSw|dSw)\('([^']+)'/);
+  return match ? 'tab-' + match[1] : null;
+};
+document.addEventListener('click', function (event) {
+  try {
+    var node = event.target;
+    if (!node || !node.closest) return;
+    var tab = node.closest('[role="tab"], .sbtn, .tbtn');
+    if (tab && tab.getAttribute('aria-selected') !== 'true' && !tab.classList.contains('act')) {
+      window.gcTrack(window.gcTabName(tab));
+    }
+    var anchor = node.closest('a');
+    if (!anchor) return;
+    var download = anchor.hasAttribute('download') ? (anchor.getAttribute('download') || true) : '';
+    window.gcTrack(window.gcEventName(anchor.getAttribute('href'), {download: download}));
+  } catch (err) {}
+}, true);
+</script>
+<script data-goatcounter="https://rudrakshsyal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
