@@ -220,13 +220,16 @@ print(supply.head())
 
 ### Visualizations
 
-Download or clone the repository and open the HTML files in a browser:
+The two root-level dashboards are published live on GitHub Pages:
+
+- [Supply overview dashboard](https://rudrakshsyal.github.io/dynamic_pricing_engine/supply_dashboard.html)
+- [Demand overview dashboard](https://rudrakshsyal.github.io/dynamic_pricing_engine/demand_side_dashboard.html)
+
+Download or clone the repository and open the remaining HTML files in a browser:
 
 - [Quote forecast](notebooks/07_quotes_forecast.html)
 - [Elasticity curves](notebooks/08_elasticity_curves.html)
 - [Solver recommendations](notebooks/09_solver.html)
-- [Supply overview dashboard](supply_dashboard.html)
-- [Demand overview dashboard](demand_side_dashboard.html)
 
 The root-level dashboards are explanatory presentations with embedded examples. Their model descriptions and January-only figures differ from the executable notebooks: for example, the supply dashboard mentions XGBoost and a maintenance-schedule hybrid, while the checked-in forecast code uses Prophet and the baselines described above. Use notebook code and recorded outputs for implementation details.
 
