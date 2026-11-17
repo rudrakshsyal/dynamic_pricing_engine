@@ -25,7 +25,7 @@
 <section class="section"><h2>Inspect the implementation</h2><p><a href="../../docs/RCA_QUICKSTART.md">Workflow and local setup</a> · <a href="../../app.py">Local interface</a> · <a href="../../src/rca_evidence.py">Evidence reconstruction</a> · <a href="../../src/rca_agent.py">Explanation agent</a> · <a href="../../src/rca_chat.py">Read-only chat</a></p><small>OpenAI Agents SDK integration is implemented in the local application. This static preview makes no API calls.</small></section>
 </div><footer>Dynamic pricing research · Static, self-contained report · Generated from committed experiment outputs · The earlier and synthetic studies use different test designs and must not be pooled as a single score.</footer>
 </main><script>const tabs=[document.getElementById('research-tab'),document.getElementById('agent-tab')];
-function activateTab(i,focus=false){tabs.forEach((t,n)=>{t.setAttribute('aria-selected',String(n===i));t.tabIndex=n===i?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=n!==i;});if(focus)tabs[i].focus();}
+function activateTab(i,focus=false){var changed=tabs[i].getAttribute('aria-selected')!=='true';tabs.forEach((t,n)=>{t.setAttribute('aria-selected',String(n===i));t.tabIndex=n===i?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=n!==i;});if(focus)tabs[i].focus();if(focus&&changed&&window.gcTrack)window.gcTrack('tab-'+(tabs[i].id||String(i)).replace(/-tab$/,''));}
 tabs.forEach((t,i)=>{t.addEventListener('click',()=>activateTab(i));t.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();activateTab(e.key==='Home'?0:e.key==='End'?1:1-i,true);}});});
 const D=__DATA__;
 const fmt=(n,d=3)=>Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -33,4 +33,82 @@ const change=(a,b)=>(b/a-1)*100;
 const labels={current:'Current ML',direct_llm:'Direct GPT-5.5',agent:'Agent-selected ML'};
 function render(){const h=+document.querySelector('#horizon').value;const p=D.pilot.filter(r=>r.horizon===h);const max=Math.max(...p.map(r=>r.forecast_errors.remaining_supply_proxy.rmse));document.querySelector('#pilotbars').innerHTML=p.map(r=>{let v=r.forecast_errors.remaining_supply_proxy.rmse;return `<div class="row"><span>${labels[r.candidate]}</span><div class="track"><div class="bar" style="width:${v/max*100}%;background:${r.candidate==='current'?'var(--teal)':r.candidate==='agent'?'var(--blue)':'var(--orange)'}"></div></div><b>${fmt(v)}</b></div>`}).join('');const cur=p.find(r=>r.candidate==='current').forecast_errors.remaining_supply_proxy.rmse;document.querySelector('#pilotnote').textContent='Direct LLM: '+fmt(change(cur,p.find(r=>r.candidate==='direct_llm').forecast_errors.remaining_supply_proxy.rmse),1)+'% higher supply error than current ML.';
 const names={baseline_seed42:'Baseline · seed42',baseline_seed123:'Baseline · seed123',baseline_seed2026:'Baseline · seed2026',demand_shift_seed42:'Demand growth · seed42',maintenance_stress_seed42:'Maintenance stress · seed42'};document.querySelector('#robustrows').innerHTML=Object.entries(names).map(([key,name])=>{let a=D.robust.find(r=>r.path===key&&r.horizon===h&&r.candidate==='current'),b=D.robust.find(r=>r.path===key&&r.horizon===h&&r.candidate==='frozen_agent');let x=a.forecast_errors.remaining_supply_proxy.rmse,y=b.forecast_errors.remaining_supply_proxy.rmse,c=change(x,y);return `<tr><td>${name}</td><td>${fmt(x)}</td><td>${fmt(y)}</td><td class="${c<0?'good':'bad'}">${c>0?'+':''}${fmt(c,1)}%</td><td>$${fmt(a.common_price_mae,0)} / $${fmt(b.common_price_mae,0)}</td><td>${a.common_price_n}</td></tr>`}).join('');}
-const h=D.historical,s=D.search.results,d=D.direct.results;const direct=d.find(r=>r.candidate==='llm_full'),base=d.find(r=>r.candidate==='current_refit');const hist=[['Direct LLM pilot',change(base.forecast_errors.remaining_supply_proxy.mae,direct.forecast_errors.remaining_supply_proxy.mae),'Supply MAE · December 1–14, 2025','Trained through November 30, 2025. A short 14-day holdout.'],['Conventional model search',change(s.current.forecast_errors.remaining_supply_proxy.rmse,s.selected_full.forecast_errors.remaining_supply_proxy.rmse),'Supply RMSE · November 1–28, 2025','Offline selection; no LLM. Zero-capacity disagreement worsened despite better supply RMSE.'],['Agent-directed ML',change(h.current.forecast_errors.remaining_supply_proxy.rmse,h.agent_full.forecast_errors.remaining_supply_proxy.rmse),'Supply RMSE · November 1–28, 2025','Validation: 28 days after June 30, August 31 and September 30. Final training through October 31.']];document.querySelector('#historical').innerHTML=hist.map(([title,v,metric,note])=>`<div class="card"><h3>${title}</h3><div class="num ${v<0?'good':'bad'}">${v>0?'+':''}${fmt(v,1)}%</div><p>${metric}</p><small>${note}</small></div>`).join('');document.querySelector('#sources').innerHTML=D.sources.map(s=>`<p><a href="../../${s.path}">${s.path}</a></p>`).join('');document.querySelector('#horizon').addEventListener('change',render);render();function renderAutoml(){const h=+document.querySelector('#horizon').value;const names={baseline_seed42:'Baseline · seed42',baseline_seed123:'Baseline · seed123',baseline_seed2026:'Baseline · seed2026',demand_shift_seed42:'Demand growth · seed42',maintenance_stress_seed42:'Maintenance stress · seed42'};document.querySelector('#automlrows').innerHTML=Object.entries(names).map(([path,label])=>{const rows=Object.fromEntries(D.automl.filter(r=>r.path===path&&r.horizon===h).map(r=>[r.candidate,r]));const values=['current','frozen_agent','automl'].map(n=>rows[n].forecast_errors.remaining_supply_proxy.rmse);const delta=change(values[0],values[2]);return `<tr><td>${label}</td>${values.map(v=>`<td>${fmt(v)}</td>`).join('')}<td class="${delta<0?'good':'bad'}">${delta>0?'+':''}${fmt(delta,1)}%</td></tr>`}).join('');}document.querySelector('#horizon').addEventListener('change',renderAutoml);renderAutoml();</script></body></html>
+const h=D.historical,s=D.search.results,d=D.direct.results;const direct=d.find(r=>r.candidate==='llm_full'),base=d.find(r=>r.candidate==='current_refit');const hist=[['Direct LLM pilot',change(base.forecast_errors.remaining_supply_proxy.mae,direct.forecast_errors.remaining_supply_proxy.mae),'Supply MAE · December 1–14, 2025','Trained through November 30, 2025. A short 14-day holdout.'],['Conventional model search',change(s.current.forecast_errors.remaining_supply_proxy.rmse,s.selected_full.forecast_errors.remaining_supply_proxy.rmse),'Supply RMSE · November 1–28, 2025','Offline selection; no LLM. Zero-capacity disagreement worsened despite better supply RMSE.'],['Agent-directed ML',change(h.current.forecast_errors.remaining_supply_proxy.rmse,h.agent_full.forecast_errors.remaining_supply_proxy.rmse),'Supply RMSE · November 1–28, 2025','Validation: 28 days after June 30, August 31 and September 30. Final training through October 31.']];document.querySelector('#historical').innerHTML=hist.map(([title,v,metric,note])=>`<div class="card"><h3>${title}</h3><div class="num ${v<0?'good':'bad'}">${v>0?'+':''}${fmt(v,1)}%</div><p>${metric}</p><small>${note}</small></div>`).join('');document.querySelector('#sources').innerHTML=D.sources.map(s=>`<p><a href="../../${s.path}">${s.path}</a></p>`).join('');document.querySelector('#horizon').addEventListener('change',render);render();function renderAutoml(){const h=+document.querySelector('#horizon').value;const names={baseline_seed42:'Baseline · seed42',baseline_seed123:'Baseline · seed123',baseline_seed2026:'Baseline · seed2026',demand_shift_seed42:'Demand growth · seed42',maintenance_stress_seed42:'Maintenance stress · seed42'};document.querySelector('#automlrows').innerHTML=Object.entries(names).map(([path,label])=>{const rows=Object.fromEntries(D.automl.filter(r=>r.path===path&&r.horizon===h).map(r=>[r.candidate,r]));const values=['current','frozen_agent','automl'].map(n=>rows[n].forecast_errors.remaining_supply_proxy.rmse);const delta=change(values[0],values[2]);return `<tr><td>${label}</td>${values.map(v=>`<td>${fmt(v)}</td>`).join('')}<td class="${delta<0?'good':'bad'}">${delta>0?'+':''}${fmt(delta,1)}%</td></tr>`}).join('');}document.querySelector('#horizon').addEventListener('change',renderAutoml);renderAutoml();</script><script>
+window.goatcounter = window.goatcounter || {};
+// Prefix page views so this project does not share the portfolio's "/" path.
+// Leave event names (no leading slash) unchanged. Do not set referrer.
+window.goatcounter.path = function (p) {
+  if (!p || p.charAt(0) !== '/') return p;
+  var query = '';
+  var q = p.indexOf('?');
+  if (q >= 0) { query = p.slice(q); p = p.slice(0, q); }
+  var prefix = '/dynamic_pricing_engine';
+  if (p !== prefix && p.indexOf(prefix + '/') !== 0) p = prefix + p;
+  if (p === prefix) p = prefix + '/';
+  p = p.replace(/\/index\.html$/, '/');
+  return p + query;
+};
+window.gcTrack = function (name) {
+  try {
+    if (!name || !window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+    window.goatcounter.count({path: name, event: true});
+  } catch (err) {}
+};
+window.gcEventName = function (href, opts) {
+  opts = opts || {};
+  if (!href) return null;
+  var value = String(href).trim();
+  if (!value || value.charAt(0) === '#' || /^javascript:/i.test(value)) return null;
+  var base = opts.base || location.href;
+  var url;
+  try { url = new URL(value, base); }
+  catch (err) { return null; }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
+  var host = url.hostname.replace(/^www\./, '').toLowerCase();
+  var path = url.pathname || '/';
+  var leaf = path.split('/').pop() || '';
+  var dot = leaf.lastIndexOf('.');
+  var ext = dot > 0 ? leaf.slice(dot + 1).toLowerCase() : '';
+  var downloadExt = {pdf:1, csv:1, tsv:1, zip:1, gz:1, tgz:1, xlsx:1, xls:1, parquet:1, '7z':1};
+  var githubBlob = host === 'github.com' && path.indexOf('/blob/') !== -1;
+  var rawFile = host === 'raw.githubusercontent.com' || (host === 'github.com' && (path.indexOf('/raw/') !== -1 || path.indexOf('/releases/download/') !== -1));
+  if (opts.download || rawFile || (!githubBlob && downloadExt[ext])) {
+    var preferred = (typeof opts.download === 'string' && opts.download) ? opts.download : leaf;
+    var name = String(preferred || 'file').split(/[?#]/)[0];
+    name = name.replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'file';
+    return 'download-' + name;
+  }
+  var portfolio = (host === 'github.com' && /\/rudrakshsyal\/ai_portfolio(?:\/|$)/.test(path))
+    || (host === 'rudrakshsyal.github.io' && (path === '/ai_portfolio' || path.indexOf('/ai_portfolio/') === 0))
+    || host.indexOf('rudraksh-syal-portfolio') === 0;
+  if (portfolio) return 'outbound-portfolio';
+  if (host === 'rudrakshsyal.github.io' && (path === '/dynamic_pricing_engine' || path.indexOf('/dynamic_pricing_engine/') === 0)) return null;
+  var github = host === 'github.com' || host.endsWith('.github.com') || host === 'github.io' || host.endsWith('.github.io') || host === 'githubusercontent.com' || host.endsWith('.githubusercontent.com');
+  if (github) return 'outbound-github';
+  return null;
+};
+window.gcTabName = function (tab) {
+  if (!tab) return null;
+  var id = tab.id || '';
+  if (id) return 'tab-' + id.replace(/-tab$/, '');
+  var onclick = tab.getAttribute('onclick') || '';
+  var match = onclick.match(/(?:sSw|dSw)\('([^']+)'/);
+  return match ? 'tab-' + match[1] : null;
+};
+document.addEventListener('click', function (event) {
+  try {
+    var node = event.target;
+    if (!node || !node.closest) return;
+    var tab = node.closest('[role="tab"], .sbtn, .tbtn');
+    if (tab && tab.getAttribute('aria-selected') !== 'true' && !tab.classList.contains('act')) {
+      window.gcTrack(window.gcTabName(tab));
+    }
+    var anchor = node.closest('a');
+    if (!anchor) return;
+    var download = anchor.hasAttribute('download') ? (anchor.getAttribute('download') || true) : '';
+    window.gcTrack(window.gcEventName(anchor.getAttribute('href'), {download: download}));
+  } catch (err) {}
+}, true);
+</script>
+<script data-goatcounter="https://rudrakshsyal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>
